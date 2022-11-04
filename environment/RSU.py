@@ -1,4 +1,9 @@
 class RSU:
+    """
+    System configs :
+    bandwidth =
+    cpu power ( frequency ) =
+    """
     def __init__(self, radius):
         self.radius = radius
 
