@@ -1,4 +1,11 @@
+import numpy
+
+
 class Environment:
+    """
+        A singleton object
+    """
+
     def __init__(self, rsus, mission_vehicles, cooperative_vehicles, tasks):
         # Put a matrix for bandwidths - between each two RSUs
         self.RSUs = rsus
@@ -15,3 +22,7 @@ class Environment:
         self.M = len(mission_vehicles)
         self.J = len(cooperative_vehicles)
         self.TASKS_COUNT = len(self.tasks)
+
+        # coverage matrices
+        self.RSU_vehicle_connected = numpy.zeros((self.M, self.RSU_COUNT), int)
+        self.mission_cooperative_vehicle_connected = numpy.zeros((self.M, self.J), int)
