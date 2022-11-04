@@ -14,3 +14,4 @@ class Environment:
         self.RSU_COUNT = len(self.RSUs)
         self.M = len(mission_vehicles)
         self.J = len(cooperative_vehicles)
+        self.TASKS_COUNT = len(self.tasks)
