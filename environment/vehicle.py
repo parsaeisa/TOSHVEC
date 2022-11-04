@@ -3,8 +3,10 @@ class Vehicle:
 
 
 class MissionVehicle(Vehicle):
-    pass
+    def __init__(self):
+        super(MissionVehicle, self).__init__()
 
 
 class CooperativeVehicle(Vehicle):
-    pass
+    def __init__(self):
+        super(CooperativeVehicle, self).__init__()
