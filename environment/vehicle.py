@@ -9,21 +9,6 @@ class Vehicle:
     def __init__(self , location):
         self.location = location
 
-    def generate_task_randomly(self):
-        pass
-
-    def offload(self):
-        pass
-
-    def _offload_to_RSU(self):
-        pass
-
-    def _offload_to_mission_vehicle(self):
-        pass
-
-    def _execute_locally(self):
-        pass
-
 class MissionVehicle(Vehicle):
     """
         System configs :
@@ -49,3 +34,18 @@ class MissionVehicle(Vehicle):
 class CooperativeVehicle(Vehicle):
     def __init__(self):
         super(CooperativeVehicle, self).__init__()
+
+    def generate_task_randomly(self):
+        pass
+
+    def offload(self):
+        pass
+
+    def _offload_to_RSU(self):
+        pass
+
+    def _offload_to_mission_vehicle(self):
+        pass
+
+    def _execute_locally(self):
+        pass
