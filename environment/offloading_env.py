@@ -17,4 +17,21 @@ class OffloadingEnvironment:
         """
         pass
 
-    # metrics
+    def transmission_time(self, rsu, m, bw):
+        """
+        :param rsu:
+        :param m: the task which is transmitted
+        :param bw: bandwidth between RSU and vehicle
+        :return: transmission time
+        """
+        tt = m.L / bw
+        return tt
+
+    def computation_time(self, task, rsu):
+        ct = task.C / rsu.f
+        return ct
+
+    def transmission_rate(self, bR, I_V2R):
+        # equation 1 in paper
+        pass
+
