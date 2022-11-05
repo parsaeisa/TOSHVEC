@@ -9,4 +9,12 @@ class OffloadingEnvironment:
     def server_selection(self):
         pass
 
+    # parameters
+    def compute_task_latency(self, task):
+        """
+        compute a task latency T1, if T1 is bigger than task deadline --> offload
+        :return:
+        """
+        pass
+
     # metrics
