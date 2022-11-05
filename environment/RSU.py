@@ -20,3 +20,35 @@ class RSU:
         computation_time = data / processing_power
 
         return computation_time
+
+    # Transmission cost
+    # the transmission cost is used to decide whether offload or not ?
+    # The offloading time may exceed the task deadline .
+    # And if scheme is offloading , offload it to RSU or cooperative vehicles ?
+    def up_transmission_cost(self, data, distance=0.0):
+        #PLDbm = 128.1 + 37.6 * np.log10(distance / 1000.0)
+        #PLw = 10.0 ** ((PLDbm) / 10.0)
+
+        #rate = self.bandwith_up * np.log2( 1 + self.Pap * PLw / (self.bandwith_up * self.omega0))
+
+        # rate = 7.0 * (1024.0 * 1024.0 / 8.0)
+        rate = self.bandwith_up * (1024.0 * 1024.0 / 8.0)
+
+        transmission_time = data / rate
+
+        return transmission_time
+
+    def reset(self):
+        self.mec_process_avaliable_time = 0.0
+        self.mobile_process_avaliable_time = 0.0
+
+    def dl_transmission_cost(self, data, distance=0.0):
+        #PLDbm = 128.1 + 37.6 * np.log10( distance / 1000.0)
+        #PLw = 10.0 ** ((PLDbm) / 10.0)
+
+        #rate = self.bandwith_dl * np.log2(1 + self.Pap * PLw / (self.bandwith_dl * self.omega0))
+
+        rate = self.bandwith_dl * (1024.0 * 1024.0 / 8.0)
+        transmission_time = data / rate
+
+        return transmission_time
