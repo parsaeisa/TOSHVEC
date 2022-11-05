@@ -1,5 +1,19 @@
 class Vehicle:
-    pass
+    """
+    computation power : in CPU cycle
+    energy
+    location : lat , lng
+    transmission rate , should it be here ??
+    """
+
+    def __init__(self , location):
+        self.location = location
+
+    def generate_task_randomly(self):
+        pass
+
+    def offload(self):
+        pass
 
 
 class MissionVehicle(Vehicle):
