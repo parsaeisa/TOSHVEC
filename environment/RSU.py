@@ -4,8 +4,13 @@ class RSU:
     bandwidth =
     cpu power ( frequency ) =
     """
-    def __init__(self, radius):
+    def __init__(self, radius, f):
+        """
+        :param radius: RSU coverage
+        :param f: cpu frequency
+        """
         self.radius = radius
+        self.f = f
 
     def process_task(self):
         """
