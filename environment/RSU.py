@@ -7,6 +7,17 @@ class RSU:
     def __init__(self, radius):
         self.radius = radius
 
+    def process_task(self):
+        """
+        In this method , RSU's available resources is updated .
+        A task's cpu cycles is subtracted from RSU's cpu cycles .
+        :return:
+        """
+        pass
+
+    def task_deallocate(self):
+        pass
+
     # Computation costs
     # this is used when deciding about offloading scheme
     # execute locally or offload ??
