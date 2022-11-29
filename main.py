@@ -6,6 +6,24 @@ define cooperative vehicles
 define mission vehicles
 
 """
+from environment.environment import Environment
+from trajectory_prediction.model import VehicleSelection
+
+# Constants
+VS_ALPHA =
+VS_BETTA =
+VS_W1 =
+
+env = Environment(rsus,
+                  mission_vehicles,
+                  cooperative_vehicles,
+                  tasks,
+                  transmissions
+                  )
+
+
+# Cooperative vehicle selection
+vehicle_selection = VehicleSelection(VS_ALPHA , VS_ALPHA , VS_BETTA)
 
 # DQN
 """
