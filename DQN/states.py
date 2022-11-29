@@ -17,11 +17,3 @@ class ActionSpace:
         self.lambda_R_m_t = 0
         self.lambda_L_m_t = 0
         self.lambda_V_m_t = 0
-
-
-def reward_function(s, action, new_s):
-    u_comm_m_t = 0  # add expression
-    u_comp_m_t = 0  # add expression
-
-    r = u_comm_m_t + u_comp_m_t
-    return r
