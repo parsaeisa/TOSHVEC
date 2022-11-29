@@ -23,21 +23,27 @@ class DeepQNetwork:
         return r
 
     # Transmission utilization
-    def compute_transmission_utilization(self):
-        return self.compute_transmission_revenue() - self.compute_transmission_cost()
+    def compute_transmission_utilization(self, action):
+        return self.compute_transmission_revenue(action) - self.compute_transmission_cost(action)
 
-    def compute_transmission_revenue(self):
+    def compute_transmission_revenue(self, action):
         pass
 
-    def compute_transmission_cost(self):
+    def compute_transmission_cost(self, action):
         pass
 
     # Calculation utilization
-    def compute_calculation_utilization(self):
-        return self.compute_calculation_revenue() - self.compute_calculation_cost()
+    def compute_calculation_utilization(self, action):
+        return self.compute_calculation_revenue(action) - self.compute_calculation_cost(action)
 
-    def compute_calculation_revenue(self):
+    def compute_calculation_revenue(self, action):
         pass
 
-    def compute_calculation_cost(self):
+    def compute_calculation_cost(self, action):
         pass
+
+
+def jug(t1, t2):
+    if t1 >= t2:
+        return 1
+    return 0
