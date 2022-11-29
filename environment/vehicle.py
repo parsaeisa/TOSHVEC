@@ -6,8 +6,11 @@ class Vehicle:
     transmission rate , should it be here ??
     """
 
-    def __init__(self , location):
+    def __init__(self, location, f):
         self.location = location
+
+        # vehicles; CPU frequency
+        self.f = f
 
 class MissionVehicle(Vehicle):
     """
@@ -16,10 +19,8 @@ class MissionVehicle(Vehicle):
         cpu power ( frequency ) =
     """
 
-    def __init__(self,f):
+    def __init__(self):
         super(MissionVehicle, self).__init__()
-        # vehicles; CPU frequency
-        self.f = f
 
     def process_task(self):
         """
