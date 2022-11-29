@@ -32,3 +32,10 @@ class VehicleSelection:
         w1 = self.w1
 
         return alpha*c_j - betta * d_j + w1 * t_j
+
+    def learn_trajectories(self):
+        # define the model
+        # prepare dataset
+        # start training the model
+
+        pass
