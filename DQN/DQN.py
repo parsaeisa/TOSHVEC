@@ -14,3 +14,30 @@ class DeepQNetwork:
         # Layers
 
         # Optimizer
+
+    def reward_function(self, action, new_s):
+        u_comm_m_t = self.compute_transmission_utilization()
+        u_comp_m_t = self.compute_calculation_utilization()
+
+        r = u_comm_m_t + u_comp_m_t
+        return r
+
+    # Transmission utilization
+    def compute_transmission_utilization(self):
+        return self.compute_transmission_revenue() - self.compute_transmission_cost()
+
+    def compute_transmission_revenue(self):
+        pass
+
+    def compute_transmission_cost(self):
+        pass
+
+    # Calculation utilization
+    def compute_calculation_utilization(self):
+        return self.compute_calculation_revenue() - self.compute_calculation_cost()
+
+    def compute_calculation_revenue(self):
+        pass
+
+    def compute_calculation_cost(self):
+        pass
