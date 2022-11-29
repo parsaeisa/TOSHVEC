@@ -13,6 +13,7 @@ from trajectory_prediction.model import VehicleSelection
 VS_ALPHA =
 VS_BETTA =
 VS_W1 =
+D_max =
 
 env = Environment(rsus,
                   mission_vehicles,
@@ -23,7 +24,7 @@ env = Environment(rsus,
 
 
 # Cooperative vehicle selection
-vehicle_selection = VehicleSelection(VS_ALPHA , VS_ALPHA , VS_BETTA)
+vehicle_selection = VehicleSelection(VS_ALPHA , VS_ALPHA , VS_BETTA,D_max)
 
 # DQN
 """

@@ -8,10 +8,11 @@ this is a place for sequential model
 
 class VehicleSelection:
 
-    def __init__(self, alpha, betta, w1):
+    def __init__(self, alpha, betta, w1, d_max):
         self.alpha = alpha
         self.betta = betta
         self.w1 = w1
+        self.d_max = d_max
 
     # Implementing Algorithm 1
     # Cooperative vehicle selection
