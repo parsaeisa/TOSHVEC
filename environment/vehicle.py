@@ -16,8 +16,10 @@ class MissionVehicle(Vehicle):
         cpu power ( frequency ) =
     """
 
-    def __init__(self):
+    def __init__(self,f):
         super(MissionVehicle, self).__init__()
+        # vehicles; CPU frequency
+        self.f = f
 
     def process_task(self):
         """
