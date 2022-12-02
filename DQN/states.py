@@ -3,9 +3,9 @@ class State:
         self.G_j_m_t = 0
         self.G_R_m_t = 0
 
-        self.f_R_m_t = 0
-        self.f_l_m_t = 0
-        self.f_j_m_t = 0
+        self.freq_R_m_t = 0
+        self.freq_l_m_t = 0
+        self.freq_j_m_t = 0
 
 
 class ActionSpace:
