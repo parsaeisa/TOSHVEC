@@ -42,3 +42,7 @@ class Environment:
             vs = model.VehicleSelection(alpha, betta, w1, d_max,
                                         self.mission_vehicles,
                                         self.cooperative_vehicles)
+
+            # now based on these distances we make an array
+            # of candidate cooperative vehilces for each mission vehicle to offload
+            # their tasks to . ( the distance must be lower than d_max )
