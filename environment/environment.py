@@ -1,12 +1,17 @@
 import numpy
 
+from trajectory_prediction import model
 
 class Environment:
     """
         A singleton object
     """
 
-    def __init__(self, rsus, mission_vehicles, cooperative_vehicles, tasks, transmissions):
+    def __init__(self, rsus, mission_vehicles, cooperative_vehicles, tasks, transmissions, timeslots_count):
+
+        #timelots
+        self.timeslots_count = timeslots_count
+
         # Put a matrix for bandwidths - between each two RSUs
         self.RSUs = rsus
 
@@ -29,3 +34,11 @@ class Environment:
 
         # transmissions
         self.transmissions = transmissions
+
+    def start_execution(self):
+        for _ in range(self.timeslots_count):
+            # Read alpha, betta, w1, d_max from a config file or bash command
+            # * Config file is preferred .
+            vs = model.VehicleSelection(alpha, betta, w1, d_max,
+                                        self.mission_vehicles,
+                                        self.cooperative_vehicles)
