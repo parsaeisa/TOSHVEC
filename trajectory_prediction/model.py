@@ -32,10 +32,20 @@ class VehicleSelection:
         # compute the distances to each one of them --> we have the distances now in self.distances
         # remove them if they are further than D_max --> we have candidates now in self.connections
         # use trajectory prediction to remove them if they are leaving communication range
+        eq_12 = np.zeros((len(self.mission_vehicles),
+                          len(self.cooperative_vehicles)))
+        selected_vehicle = np.zeros((len(self.mission_vehicles)))
 
-        # Now we have candidates
-        # Choose the best one according to Eq 12
-        pass
+        for i in range(len(self.mission_vehicles)):
+            for j in range(len(self.cooperative_vehicles)):
+                # Decide for computational powers : c_j
+
+                # Compute delay : t_j
+
+                eq_12[i] = self.vehicle_selection_superiority_equation(t_j, d_j, c_j)
+            selected_vehicle[i] = eq_12[i].max()
+
+        return selected_vehicle
 
     def compute_distances(self):
         # We compute distances between all mission vehicles to cooperative vehicles
