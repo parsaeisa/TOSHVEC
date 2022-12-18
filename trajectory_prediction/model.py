@@ -1,4 +1,5 @@
 import numpy as np
+
 """
 Write this in Google colab and after you've tried it out ,
 paste it here
@@ -18,6 +19,12 @@ class VehicleSelection:
         self.mission_vehicles = mission_vehicles
         self.cooperative_vehicles = cooperative_vehicles
 
+        self.distances = np.zeros((len(mission_vehicles),
+                                   len(mission_vehicles)))
+
+        self.connection = np.zeros((len(mission_vehicles),
+                                    len(mission_vehicles)))
+
     # Implementing Algorithm 1
     # Cooperative vehicle selection
     def cooperative_vehicle_selection(self, t_j, d_j, c_j):
@@ -34,17 +41,25 @@ class VehicleSelection:
         # We compute distances between all mission vehicles to cooperative vehicles
         # We consider the cooperative vehicles' locations in the next timeslot
         # We predict the locations in the next timeslot by a lightGBM .
+        i = 0
+        j = 0
         for cv in self.cooperative_vehicles:
-            for mv in self.mission_vehicles :
-                self._compute_distance(cv.location, mv.location)
-        pass
+            for mv in self.mission_vehicles:
+                self.distances[i][j] = self._compute_distance(cv.location, mv.location)
+
+                if self.distances[i][j] <= self.d_max:
+                    # This matrix indicates candidate cvs for all msv .
+                    self.connection[i][j] = 1
+
+                i += 1
+            j += 1
 
     def vehicle_selection_superiority_equation(self, t_j, d_j, c_j):
         alpha = self.alpha
         betta = self.betta
         w1 = self.w1
 
-        return alpha*c_j - betta * d_j + w1 * t_j
+        return alpha * c_j - betta * d_j + w1 * t_j
 
     def learn_trajectories(self):
         # define the model
@@ -54,4 +69,4 @@ class VehicleSelection:
         pass
 
     def _compute_distance(self, cv_location, mv_location):
-        return np.linalg.norm(cv_location , mv_location)
+        return np.linalg.norm(cv_location, mv_location)
