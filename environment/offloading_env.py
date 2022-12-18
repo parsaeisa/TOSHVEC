@@ -21,3 +21,4 @@ class OffloadingEnvironment:
         pass
 
     # metrics
+    # We should decide what to do here . ( process locally , offload to RSU or to a cooperative vehicle )
