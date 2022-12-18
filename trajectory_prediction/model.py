@@ -22,15 +22,15 @@ class VehicleSelection:
         self.distances = np.zeros((len(mission_vehicles),
                                    len(mission_vehicles)))
 
-        self.connection = np.zeros((len(mission_vehicles),
-                                    len(mission_vehicles)))
+        self.connections = np.zeros((len(mission_vehicles),
+                                     len(mission_vehicles)))
 
     # Implementing Algorithm 1
     # Cooperative vehicle selection
     def cooperative_vehicle_selection(self, t_j, d_j, c_j):
         # iterate through cooperative vehicles
-        # compute the distances to each one of them
-        # remove them if they are further than D_max
+        # compute the distances to each one of them --> we have the distances now in self.distances
+        # remove them if they are further than D_max --> we have candidates now in self.connections
         # use trajectory prediction to remove them if they are leaving communication range
 
         # Now we have candidates
@@ -49,7 +49,7 @@ class VehicleSelection:
 
                 if self.distances[i][j] <= self.d_max:
                     # This matrix indicates candidate cvs for all msv .
-                    self.connection[i][j] = 1
+                    self.connections[i][j] = 1
 
                 i += 1
             j += 1
