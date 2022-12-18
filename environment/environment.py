@@ -44,5 +44,5 @@ class Environment:
                                         self.cooperative_vehicles)
 
             # now based on these distances we make an array
-            # of candidate cooperative vehilces for each mission vehicle to offload
+            # of candidate cooperative vehicles for each mission vehicle to offload
             # their tasks to . ( the distance must be lower than d_max )
