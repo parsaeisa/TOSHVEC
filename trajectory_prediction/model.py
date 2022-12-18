@@ -47,6 +47,13 @@ class VehicleSelection:
 
         return selected_vehicle
 
+    def vehicle_selection_superiority_equation(self, t_j, d_j, c_j):
+        alpha = self.alpha
+        betta = self.betta
+        w1 = self.w1
+
+        return alpha * c_j - betta * d_j + w1 * t_j
+
     def compute_distances(self):
         # We compute distances between all mission vehicles to cooperative vehicles
         # We consider the cooperative vehicles' locations in the next timeslot
@@ -64,12 +71,11 @@ class VehicleSelection:
                 i += 1
             j += 1
 
-    def vehicle_selection_superiority_equation(self, t_j, d_j, c_j):
-        alpha = self.alpha
-        betta = self.betta
-        w1 = self.w1
+    def _compute_distance(self, cv_location, mv_location):
+        return np.linalg.norm(cv_location, mv_location)
 
-        return alpha * c_j - betta * d_j + w1 * t_j
+    def compute_delay(self):
+        pass
 
     def learn_trajectories(self):
         # define the model
@@ -77,6 +83,3 @@ class VehicleSelection:
         # start training the model
 
         pass
-
-    def _compute_distance(self, cv_location, mv_location):
-        return np.linalg.norm(cv_location, mv_location)
