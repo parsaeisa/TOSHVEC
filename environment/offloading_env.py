@@ -4,6 +4,9 @@ class OffloadingEnvironment:
 
     # solutions
     def cooperative_selection(self):
+        # there is another vehicle selection ( class )
+        # which is newer and we gonna use that .
+        # This vehicle selection is performed in each timeslot
         pass
 
     def server_selection(self):
