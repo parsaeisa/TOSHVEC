@@ -22,3 +22,4 @@ class OffloadingEnvironment:
 
     # metrics
     # We should decide what to do here . ( process locally , offload to RSU or to a cooperative vehicle )
+    # I think this is the place that we should employ DQN .
