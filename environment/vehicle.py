@@ -23,6 +23,10 @@ class Vehicle:
     def task_deallocate(self, task):
         self.f += task.C
 
+    def task_process_delay(self, task):
+        return task.C / self.f
+
+
 class MissionVehicle(Vehicle):
     """
         System configs :
