@@ -22,6 +22,7 @@ class VehicleSelection:
         self.distances = np.zeros((len(mission_vehicles),
                                    len(cooperative_vehicles)))
 
+        # This shows candidate cooperative vehicles for each mission vehicle
         self.connections = np.zeros((len(mission_vehicles),
                                      len(cooperative_vehicles)))
 
@@ -30,9 +31,6 @@ class VehicleSelection:
     # Implementing Algorithm 1
     # Cooperative vehicle selection
     def cooperative_vehicle_selection(self):
-        # iterate through cooperative vehicles
-        # compute the distances to each one of them --> we have the distances now in self.distances
-        # remove them if they are further than D_max --> we have candidates now in self.connections
         # use trajectory prediction to remove them if they are leaving communication range
         eq_12 = np.zeros((len(self.mission_vehicles),
                           len(self.cooperative_vehicles)))
@@ -41,9 +39,13 @@ class VehicleSelection:
         for i in range(len(self.mission_vehicles)):
             for j in range(len(self.cooperative_vehicles)):
 
+                if self.connections[i, j] != 1:
+                    # means that this cv is not a candidate for the specific mv
+                    continue
+
                 c_j = self.mission_vehicles[i].f
                 t_j = self.transitions.v2v_comm_delay[i, j, ]
-                d_j = self.distances[i,j]
+                d_j = self.distances[i, j]
 
                 eq_12[i] = self.vehicle_selection_superiority_equation(t_j, d_j, c_j)
             selected_vehicle[i] = eq_12[i].max()
