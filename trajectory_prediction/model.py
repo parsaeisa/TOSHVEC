@@ -10,7 +10,7 @@ this is a place for sequential model
 
 class VehicleSelection:
 
-    def __init__(self, alpha, betta, w1, d_max, mission_vehicles, cooperative_vehicles):
+    def __init__(self, alpha, betta, w1, d_max, mission_vehicles, cooperative_vehicles, transitions):
         # This class is created at each timeslot .
         self.alpha = alpha
         self.betta = betta
@@ -20,14 +20,16 @@ class VehicleSelection:
         self.cooperative_vehicles = cooperative_vehicles
 
         self.distances = np.zeros((len(mission_vehicles),
-                                   len(mission_vehicles)))
+                                   len(cooperative_vehicles)))
 
         self.connections = np.zeros((len(mission_vehicles),
-                                     len(mission_vehicles)))
+                                     len(cooperative_vehicles)))
+
+        self.transitions = transitions
 
     # Implementing Algorithm 1
     # Cooperative vehicle selection
-    def cooperative_vehicle_selection(self, t_j, d_j, c_j):
+    def cooperative_vehicle_selection(self):
         # iterate through cooperative vehicles
         # compute the distances to each one of them --> we have the distances now in self.distances
         # remove them if they are further than D_max --> we have candidates now in self.connections
@@ -38,9 +40,10 @@ class VehicleSelection:
 
         for i in range(len(self.mission_vehicles)):
             for j in range(len(self.cooperative_vehicles)):
-                # Decide for computational powers : c_j
 
-                # Compute delay : t_j
+                c_j = self.mission_vehicles[i].f
+                t_j = self.transitions.v2v_comm_delay[i, j, ]
+                d_j = self.distances[i,j]
 
                 eq_12[i] = self.vehicle_selection_superiority_equation(t_j, d_j, c_j)
             selected_vehicle[i] = eq_12[i].max()
@@ -75,6 +78,8 @@ class VehicleSelection:
         return np.linalg.norm(cv_location, mv_location)
 
     def compute_delay(self):
+        # The delay is computed inside of vehicles .
+        # Here we just call the method
         pass
 
     def learn_trajectories(self):
