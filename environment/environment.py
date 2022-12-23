@@ -60,7 +60,7 @@ class Environment:
             # Here you should call some of vs's methods
             vs.learn_trajectories()
             vs.compute_distances()
-            vs.cooperative_vehicles()
+            vs.cooperative_vehicle_selection()
             vs.compute_delay()
 
             # now based on these distances we make an array
