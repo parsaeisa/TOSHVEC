@@ -26,15 +26,16 @@ class DeepQNetwork:
     def compute_transmission_utilization(self, action):
         return self.compute_transmission_revenue(action) - self.compute_transmission_cost(action)
 
+    # Calculation utilization
+    def compute_calculation_utilization(self, action):
+        return self.compute_calculation_revenue(action) - self.compute_calculation_cost(action)
+
+    # Helper methods
     def compute_transmission_revenue(self, action):
         pass
 
     def compute_transmission_cost(self, action):
         pass
-
-    # Calculation utilization
-    def compute_calculation_utilization(self, action):
-        return self.compute_calculation_revenue(action) - self.compute_calculation_cost(action)
 
     def compute_calculation_revenue(self, action):
         pass
