@@ -4,19 +4,20 @@ class RSU:
     bandwidth =
     cpu power ( frequency ) =
     """
-    def __init__(self, radius):
+    def __init__(self, radius, cpu_cycles):
         self.radius = radius
+        self.cpu_cycles = cpu_cycles
 
-    def process_task(self):
+    def process_task(self,  task):
         """
         In this method , RSU's available resources is updated .
         A task's cpu cycles is subtracted from RSU's cpu cycles .
         :return:
         """
-        pass
+        self.cpu_cycles -= task.C
 
-    def task_deallocate(self):
-        pass
+    def task_deallocate(self, task):
+        self.cpu_cycles += task.C
 
     # Computation costs
     # this is used when deciding about offloading scheme
