@@ -12,6 +12,17 @@ class Vehicle:
         # vehicles; CPU frequency
         self.f = f
 
+    def process_task(self, task):
+        """
+        In this method , RSU's available resources is updated .
+        A task's cpu cycles is subtracted from RSU's cpu cycles .
+        :return:
+        """
+        self.f -= task.C
+
+    def task_deallocate(self, task):
+        self.f += task.C
+
 class MissionVehicle(Vehicle):
     """
         System configs :
@@ -21,17 +32,6 @@ class MissionVehicle(Vehicle):
 
     def __init__(self):
         super(MissionVehicle, self).__init__()
-
-    def process_task(self):
-        """
-        In this method , RSU's available resources is updated .
-        A task's cpu cycles is subtracted from RSU's cpu cycles .
-        :return:
-        """
-        pass
-
-    def task_deallocate(self):
-        pass
 
 
 class CooperativeVehicle(Vehicle):
@@ -50,5 +50,5 @@ class CooperativeVehicle(Vehicle):
     def _offload_to_mission_vehicle(self):
         pass
 
-    def _execute_locally(self):
-        pass
+    def _execute_locally(self, task):
+        self.process_task(task)
