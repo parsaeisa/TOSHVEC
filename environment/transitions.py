@@ -41,6 +41,7 @@ class Transitions:
     def v2v_offloading_delays(self):
         self._offloading_delays(self.v2v_communication_links_bandwidth, self.v2v_comm_delay)
 
+    # Shared
     def _offloading_delays(self, bandwidths, delays):
         # don't forget to consider available links
 
@@ -53,18 +54,17 @@ class Transitions:
                     r_mt_j = self.v2v_communication_links_trans_rate[mission_vehicle_index, cooperative_vehicle_index]
 
                     delays[mission_vehicle_index, cooperative_vehicle_index, task_index] = \
-                        self.offloading_to_cooperative_vehicle_delay(
+                        self.offloading_delay(
                             self.tasks[task_index], r_mt_j
                         )
 
-    def offloading_to_cooperative_vehicle_delay(self, task, r_mt_j):
+    def offloading_delay(self, task, r_mt_j):
         l_m = task.L
 
         t_comm = l_m / r_mt_j
 
         return t_comm
 
-    # Shared
     def compute_transmission_rates(self):
         # self.v2v_communication_links_trans_rate should be made here
         # is v2v and v2r formulation the same ?
