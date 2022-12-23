@@ -13,12 +13,16 @@ class OffloadingEnvironment:
         pass
 
     # parameters
-    def compute_task_latency(self, task):
+    def process_locally(self, task, mission_vehicle):
         """
         compute a task latency T1, if T1 is bigger than task deadline --> offload
         :return:
         """
-        pass
+        delay = self.processing_locally_delay(task,mission_vehicle)
+        if delay > task.T:
+            return False
+        else:
+            return True
 
     def processing_locally_delay(self, task, mission_vehicle):
         return task.C / mission_vehicle.f
