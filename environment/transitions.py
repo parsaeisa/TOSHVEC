@@ -30,6 +30,13 @@ class Transitions:
             (mission_vehicles_count, cooperative_vehicles_count, len(self.tasks))
         )
 
+    def compute_delays(self):
+        self.compute_transmission_rates()
+
+        self.offloading_to_rsu_delay()
+
+        self.v2v_offloading_delays()
+
     # V2R
     def offloading_to_rsu_delay(self):
         self._offloading_delays(self.v2r_communication_links_bandwidth, self.v2r_comm_delay)

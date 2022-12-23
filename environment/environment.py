@@ -51,13 +51,14 @@ class Environment:
                 v2r_communication_links_bandwidth,
                 self.tasks, self.cooperative_vehicles
             )
+            transitions.compute_delays()
             # Read alpha, betta, w1, d_max from a config file or bash command
             # * Config file is preferred .
             vs = model.VehicleSelection(alpha, betta, w1, d_max,
                                         self.mission_vehicles,
                                         self.cooperative_vehicles,
                                         transitions)
-            # Here you should call some of vs's methods
+
             vs.learn_trajectories()
             vs.compute_distances()
             vs.cooperative_vehicle_selection()
