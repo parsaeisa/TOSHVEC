@@ -12,7 +12,7 @@ class Vehicle:
         # vehicles; CPU frequency
         self.f = f
 
-    def process_task(self, task):
+    def task_allocation(self, task):
         """
         In this method , RSU's available resources is updated .
         A task's cpu cycles is subtracted from RSU's cpu cycles .
@@ -55,4 +55,4 @@ class CooperativeVehicle(Vehicle):
         pass
 
     def _execute_locally(self, task):
-        self.process_task(task)
+        self.task_allocation(task)
