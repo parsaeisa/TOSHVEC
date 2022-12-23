@@ -37,9 +37,6 @@ class Transitions:
         T_total = T_comm + T_comp
         return T_total
 
-    def processing_locally_delay(self,task, mission_vehicle):
-        return task.C / mission_vehicle.f
-
 
 def compute_interference_V2R():
     pass
