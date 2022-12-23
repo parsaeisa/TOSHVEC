@@ -38,6 +38,7 @@ class RSU:
     # The offloading time may exceed the task deadline .
     # And if scheme is offloading , offload it to RSU or cooperative vehicles ?
     def up_transmission_cost(self, data, distance=0.0):
+        # For transmissions, we use the Transitions class .
         #PLDbm = 128.1 + 37.6 * np.log10(distance / 1000.0)
         #PLw = 10.0 ** ((PLDbm) / 10.0)
 
