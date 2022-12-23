@@ -4,38 +4,70 @@ import numpy as np
 class Transitions:
     def __init__(self, v2v_communication_links_available,
                  v2v_communication_links_bandwidth,
-                 v2v_communication_links_trans_rate,
                  v2r_communication_links_available,
                  v2r_communication_links_bandwidth,
-                 v2r_communication_links_trans_rate):
-        self.V2V0_communication_links_available = v2v_communication_links_available
-        self.V2V0_communication_links_bandwidth = v2v_communication_links_bandwidth
-        self.v2v_communication_links_trans_rate = v2v_communication_links_trans_rate
+               tasks , cooperative_vehicles):
+        self.v2v_communication_links_available = v2v_communication_links_available
+        self.v2v_communication_links_bandwidth = v2v_communication_links_bandwidth
+        self.v2v_communication_links_trans_rate = np.zeros_like(v2v_communication_links_bandwidth.shape())
 
-        self.V2R_communication_links_available = v2r_communication_links_available
-        self.V2R_communication_links_bandwidth = v2r_communication_links_bandwidth
-        self.v2r_communication_links_trans_rate = v2r_communication_links_trans_rate
+        self.v2r_communication_links_available = v2r_communication_links_available
+        self.v2r_communication_links_bandwidth = v2r_communication_links_bandwidth
+        self.v2r_communication_links_trans_rate = np.zeros_like(v2r_communication_links_bandwidth.shape())
+        # Transmission rates are computed based on bandwidth
+        # Transmission rates are being used in practice .
 
+        self.tasks = tasks
+        self.cooperative_vehicles = cooperative_vehicles
+        mission_vehicles_count,cooperative_vehicles_count = self.v2v_communication_links_bandwidth.shape()
+
+        self.v2v_comm_delay = np.zeros(
+            (mission_vehicles_count, cooperative_vehicles_count, len(self.tasks))
+        )
+
+    # V2R
+    def offloading_to_rsu_delay(self):
+        pass
+
+    def backhaul_link_delay(self):
+        pass
+
+    # V2V
+    def v2v_offloading_delays(self):
+
+        mission_vehicles_count, cooperative_vehicles_count = self.v2v_communication_links_bandwidth.shape()
+
+        for mission_vehicle_index in range(mission_vehicles_count):
+            for cooperative_vehicle_index in range(cooperative_vehicles_count):
+
+                for task_index in range(len(self.tasks)):
+                    r_mt_j = self.v2v_communication_links_trans_rate[mission_vehicle_index, cooperative_vehicle_index]
+
+                    self.v2v_comm_delay[mission_vehicle_index, cooperative_vehicle_index, task_index] = \
+                        self.offloading_to_cooperative_vehicle_delay(
+                        self.tasks[task_index], r_mt_j
+                    )
+
+    def offloading_to_cooperative_vehicle_delay(self, task, r_mt_j):
+        l_m = task.L
+
+        t_comm = l_m / r_mt_j
+
+        return t_comm
+
+    # Shared
     def compute_transmission_rates(self):
+        # self.v2v_communication_links_trans_rate should be made here
+        # is v2v and v2r formulation the same ?
+
         interference = compute_interference_V2R()
-        bandwidths = self.V2R_communication_links_bandwidth
+        bandwidths = self.v2r_communication_links_bandwidth
 
         # Equation 1 in the paper
         r = np.power(bandwidths, R) + np.log2(1 + np.divide(P * G, gaus_noise + interference))
         return r
 
-    def offloading_to_rsu_delay(self):
-        pass
 
-    def offloading_to_cooperative_vehicle_delay(self,task, cooperative_vehicle):
-        L_m =
-        r_mt_j =
-
-        T_comm = L_m / r_mt_j
-        T_comp = task.C / cooperative_vehicle.f
-
-        T_total = T_comm + T_comp
-        return T_total
 
 
 def compute_interference_V2R():
