@@ -58,8 +58,8 @@ class DeepQNetwork:
 
 
     def __reward_function(self, action):
-        u_comm_m_t = self.compute_transmission_utilization(action)
-        u_comp_m_t = self.compute_calculation_utilization(action)
+        u_comm_m_t = self.__compute_transmission_utilization(action)
+        u_comp_m_t = self.__compute_calculation_utilization(action)
 
         r = u_comm_m_t + u_comp_m_t
         return n_state, r
