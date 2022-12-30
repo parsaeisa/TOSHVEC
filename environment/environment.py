@@ -3,6 +3,7 @@ import numpy
 from trajectory_prediction import model
 from offloading_env import OffloadingEnvironment
 from transitions import Transitions
+from DQN import DQN
 
 class Environment:
     """
@@ -68,3 +69,7 @@ class Environment:
             # of candidate cooperative vehicles for each mission vehicle to offload
             # their tasks to . ( the distance must be lower than d_max )
             oe = OffloadingEnvironment()
+
+            # Read lr and gamma from config
+            dqn = DQN.DeepQNetwork(.9, .3)
+            dqn.compute_policy()
