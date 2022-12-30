@@ -1,3 +1,9 @@
 dqn:
   learning_rate: 0.9
   gamma: 0.3
+
+vehicle_selection:
+  alpha: 1
+  betta: 2
+  w1: 3
+  d_max: 4
