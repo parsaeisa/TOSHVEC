@@ -1,4 +1,5 @@
 import numpy as np
+import lightgbm as lgb
 
 """
 Write this in Google colab and after you've tried it out ,
@@ -12,6 +13,7 @@ class VehicleSelection:
 
     def __init__(self, alpha, betta, w1, d_max, mission_vehicles, cooperative_vehicles, transitions):
         # This class is created at each timeslot .
+        self.location_next_ts = None
         self.alpha = alpha
         self.betta = betta
         self.w1 = w1
@@ -85,8 +87,12 @@ class VehicleSelection:
         pass
 
     def learn_trajectories(self):
-        # define the model
-        # prepare dataset
-        # start training the model
+        model = lgb.LGBMClassifier()
 
-        pass
+        # import dataset
+        # The input is current location and the output is next location
+
+        # start training the model
+        model.fit(x_train, y_train)
+
+        self.location_next_ts = model.predict(current_locations)
