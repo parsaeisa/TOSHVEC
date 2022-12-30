@@ -1,5 +1,10 @@
+import numpy as np
+from states import ActionSpace
+
 class DeepQNetwork:
     def __init__(self):
+        # Read this from config
+        self.learning_rate = .9
         pass
 
     def built_net(self):
@@ -15,12 +20,33 @@ class DeepQNetwork:
 
         # Optimizer
 
-    def reward_function(self, action, new_s):
-        u_comm_m_t = self.compute_transmission_utilization()
-        u_comp_m_t = self.compute_calculation_utilization()
+    def compute_policy(self):
+        initial_state =
+        converged = False
+
+        actions = [
+            ActionSpace(1,0,0),
+            ActionSpace(0,1,0),
+            ActionSpace(0,0,1)
+        ]
+
+        while not converged:
+            for state in :
+                values = []
+                for action in actions :
+                    next_state, reward = self.reward_function(action)
+                    values.append(reward + gamma * )
+
+                v[state] = np.array(values).max()
+
+        pass
+
+    def reward_function(self, action):
+        u_comm_m_t = self.compute_transmission_utilization(action)
+        u_comp_m_t = self.compute_calculation_utilization(action)
 
         r = u_comm_m_t + u_comp_m_t
-        return r
+        return n_state, r
 
     # Transmission utilization
     def compute_transmission_utilization(self, action):
@@ -32,10 +58,10 @@ class DeepQNetwork:
 
     # Helper methods
     def compute_transmission_revenue(self, action):
-        pass
+        return a * ( action.lambda_R_m_t * + action.lambda_V_m_t * )
 
     def compute_transmission_cost(self, action):
-        pass
+        return action.lambda_R_m_t * * + action.lambda_V_m_t * *
 
     def compute_calculation_revenue(self, action):
         pass
