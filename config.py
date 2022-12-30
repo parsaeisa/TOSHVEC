@@ -11,9 +11,6 @@ class Config:
         self.DQN.lr = data["dqn"]["learning_rate"]
         self.DQN.gamma = data["dqn"]["gamma"]
 
-        print(self.DQN.lr)
-        print(self.DQN.gamma)
-
     def init(self):
         pass
 
