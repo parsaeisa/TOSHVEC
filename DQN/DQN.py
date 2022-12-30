@@ -2,8 +2,11 @@ import numpy as np
 from states import ActionSpace
 
 class DeepQNetwork:
-    def __init__(self, lr):
+    def __init__(self, lr, gamma):
         self.learning_rate = lr
+        self.gamma = gamma
+        self.values = {}
+        self.policy = {}
 
     def built_net(self):
         # ------------------ all inputs ------------------------
@@ -28,16 +31,31 @@ class DeepQNetwork:
             ActionSpace(0,0,1)
         ]
 
+        # Finding value of each state
         while not converged:
             for state in :
                 values = []
                 for action in actions :
                     next_state, reward = self.__reward_function(action)
-                    values.append(reward + gamma * )
+                    values.append(reward + self.gamma * )
 
-                v[state] = np.array(values).max()
+                self.values[state] = np.array(values).max()
 
-        pass
+        # Finding actions in each state based on values
+        for state in :
+            new_v = []
+            for action in actions:
+                (next_state, reward) = info[(state, action)]
+                new_v.append(reward + self.gamma * self.values[next_state])
+
+            new_v = np.array(new_v)
+            best_value = new_v.max()
+            best_action_idx = np.where(new_v == best_value)[0]
+            best_action = actions[best_action_idx[0]]
+            self.policy[state] = best_action
+
+        # Self.policy is ready .
+
 
     def __reward_function(self, action):
         u_comm_m_t = self.compute_transmission_utilization(action)
