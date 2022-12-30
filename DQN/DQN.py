@@ -2,10 +2,8 @@ import numpy as np
 from states import ActionSpace
 
 class DeepQNetwork:
-    def __init__(self):
-        # Read this from config
-        self.learning_rate = .9
-        pass
+    def __init__(self, lr):
+        self.learning_rate = lr
 
     def built_net(self):
         # ------------------ all inputs ------------------------
@@ -34,14 +32,14 @@ class DeepQNetwork:
             for state in :
                 values = []
                 for action in actions :
-                    next_state, reward = self.reward_function(action)
+                    next_state, reward = self.__reward_function(action)
                     values.append(reward + gamma * )
 
                 v[state] = np.array(values).max()
 
         pass
 
-    def reward_function(self, action):
+    def __reward_function(self, action):
         u_comm_m_t = self.compute_transmission_utilization(action)
         u_comp_m_t = self.compute_calculation_utilization(action)
 
@@ -49,24 +47,24 @@ class DeepQNetwork:
         return n_state, r
 
     # Transmission utilization
-    def compute_transmission_utilization(self, action):
-        return self.compute_transmission_revenue(action) - self.compute_transmission_cost(action)
+    def __compute_transmission_utilization(self, action):
+        return self.__compute_transmission_revenue(action) - self.__compute_transmission_cost(action)
 
     # Calculation utilization
-    def compute_calculation_utilization(self, action):
-        return self.compute_calculation_revenue(action) - self.compute_calculation_cost(action)
+    def __compute_calculation_utilization(self, action):
+        return self.__compute_calculation_revenue(action) - self.__compute_calculation_cost(action)
 
     # Helper methods
-    def compute_transmission_revenue(self, action):
+    def __compute_transmission_revenue(self, action):
         return a * ( action.lambda_R_m_t * + action.lambda_V_m_t * )
 
-    def compute_transmission_cost(self, action):
+    def __compute_transmission_cost(self, action):
         return action.lambda_R_m_t * * + action.lambda_V_m_t * *
 
-    def compute_calculation_revenue(self, action):
+    def __compute_calculation_revenue(self, action):
         pass
 
-    def compute_calculation_cost(self, action):
+    def __compute_calculation_cost(self, action):
         pass
 
 
