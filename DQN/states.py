@@ -13,7 +13,7 @@ class ActionSpace:
     action space is dedicated to each task (??)
     """
 
-    def __init__(self):
-        self.lambda_R_m_t = 0
-        self.lambda_L_m_t = 0
-        self.lambda_V_m_t = 0
+    def __init__(self, lambda_R_m_t, lambda_L_m_t, lambda_V_m_t):
+        self.lambda_R_m_t = lambda_R_m_t
+        self.lambda_L_m_t = lambda_L_m_t
+        self.lambda_V_m_t = lambda_V_m_t
