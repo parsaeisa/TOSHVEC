@@ -18,6 +18,7 @@ class Config:
         self.vs.w1 = data["vehicle_selection"]["w1"]
         self.vs.d_max = data["vehicle_selection"]["d_max"]
 
+
 class DQNConfig:
     def __init__(self):
         self.lr = 0
@@ -35,8 +36,3 @@ class VehicleSelectionConfig:
         self.betta = 0
         self.w1 = 0
         self.d_max = 0
-
-
-c = Config()
-
-c.init()
