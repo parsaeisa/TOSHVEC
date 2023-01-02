@@ -1,5 +1,6 @@
 import numpy as np
 from states import ActionSpace
+import main
 
 class DeepQNetwork:
     def __init__(self, lr, gamma):
@@ -22,6 +23,7 @@ class DeepQNetwork:
         # Optimizer
 
     def compute_policy(self):
+        # You also should bring tasks into it .
         initial_state =
         converged = False
 
@@ -57,9 +59,9 @@ class DeepQNetwork:
         # Self.policy is ready .
 
 
-    def __reward_function(self, action):
+    def __reward_function(self, action, task):
         u_comm_m_t = self.__compute_transmission_utilization(action)
-        u_comp_m_t = self.__compute_calculation_utilization(action)
+        u_comp_m_t = self.__compute_calculation_utilization(action, task)
 
         r = u_comm_m_t + u_comp_m_t
         return n_state, r
@@ -69,8 +71,8 @@ class DeepQNetwork:
         return self.__compute_transmission_revenue(action) - self.__compute_transmission_cost(action)
 
     # Calculation utilization
-    def __compute_calculation_utilization(self, action):
-        return self.__compute_calculation_revenue(action) - self.__compute_calculation_cost(action)
+    def __compute_calculation_utilization(self, action, task):
+        return self.__compute_calculation_revenue(action) - self.__compute_calculation_cost(action, task)
 
     # Helper methods
     def __compute_transmission_revenue(self, action):
@@ -82,8 +84,12 @@ class DeepQNetwork:
     def __compute_calculation_revenue(self, action):
         pass
 
-    def __compute_calculation_cost(self, action):
-        pass
+    def __compute_calculation_cost(self, action, task):
+        cost = action.lambda_V_m_t * main.env.config.betta_v * task.C \
+               + action.lambda_R_m_t * main.env.config.betta_r * task.C \
+               + action.lambda_L_m_t * main.env.config.betta_l * task.C
+
+        return cost
 
 
 def jug(t1, t2):
