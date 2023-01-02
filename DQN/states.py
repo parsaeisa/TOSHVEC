@@ -11,6 +11,7 @@ class State:
 class ActionSpace:
     """
     action space is dedicated to each task (??)
+    action is defined for each task at each timeslot .
     """
 
     def __init__(self, lambda_R_m_t, lambda_L_m_t, lambda_V_m_t):
