@@ -7,3 +7,8 @@ vehicle_selection:
   betta: 2
   w1: 3
   d_max: 4
+
+energy_consumption:
+  local: 1
+  vehicle: 1
+  rsu: 1

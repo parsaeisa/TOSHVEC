@@ -18,6 +18,10 @@ class Config:
         self.vs.w1 = data["vehicle_selection"]["w1"]
         self.vs.d_max = data["vehicle_selection"]["d_max"]
 
+        self.betta_l = data["energy_consumption"]["local"]
+        self.betta_r = data["energy_consumption"]["rsu"]
+        self.betta_v = data["energy_consumption"]["vehicle"]
+
 
 class DQNConfig:
     def __init__(self):
