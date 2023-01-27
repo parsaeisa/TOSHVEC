@@ -1,5 +1,24 @@
 import numpy as np
 from states import ActionSpace
+from collections import deque
+import random
+
+
+class ReplayBuffer(object):
+    def __init__(self, capacity):
+        self.buffer = deque(maxlen=capacity)
+
+    def push(self, state, action, reward, next_state, done):
+        state = np.expand_dims(state, 0)
+        next_state = np.expand_dims(next_state, 0)
+        self.buffer.append((state, action, reward, next_state, done))
+
+    def sample(self, batch_size):
+        state, action, reward, next_state, done = zip(*random.sample(self.buffer, batch_size))
+        return np.concatenate(state), action, reward, np.concatenate(next_state), done
+
+    def __len__(self):
+        return len(self.buffer)
 
 class DeepQNetwork:
     def __init__(self, lr, gamma):
@@ -11,6 +30,7 @@ class DeepQNetwork:
     def built_net(self):
         # ------------------ all inputs ------------------------
         # We should input state , next state (??) , reward and action to the deep learning model
+        # I think only state is passed to neural network and action is retrieved .
         self.s = tf.placeholder(tf.float32, [None, self.n_features], name='s')  # input State
         self.s_ = tf.placeholder(tf.float32, [None, self.n_features], name='s_')  # input Next State
         self.r = tf.placeholder(tf.float32, [None, ], name='r')  # input Reward
