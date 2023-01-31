@@ -42,7 +42,21 @@ class DeepQNetwork:
         # Optimizer
 
     def compute_policy(self):
+        # Buffer
+        buffer = ReplayBuffer()
+
+        # Environment
+
+        # Net
+
+        # Trainer
+
+        # Loss function
+
+        # Initial state
         initial_state =
+
+        # The loop
         converged = False
 
         actions = [
@@ -53,28 +67,19 @@ class DeepQNetwork:
 
         # Finding value of each state
         while not converged:
-            for state in :
-                values = []
-                for action in actions :
-                    next_state, reward = self.__reward_function(action)
-                    values.append(reward + self.gamma * )
 
-                self.values[state] = np.array(values).max()
+            # Extract action
+            action =
 
-        # Finding actions in each state based on values
-        for state in :
-            new_v = []
-            for action in actions:
-                (next_state, reward) = info[(state, action)]
-                new_v.append(reward + self.gamma * self.values[next_state])
+            # Extract reward, next_state, and done from that action
+            next_state, reward = self.__reward_function(action)
 
-            new_v = np.array(new_v)
-            best_value = new_v.max()
-            best_action_idx = np.where(new_v == best_value)[0]
-            best_action = actions[best_action_idx[0]]
-            self.policy[state] = best_action
+            # If done: move to initial state
 
-        # Self.policy is ready .
+            # If not done : move to the next_state
+
+            # If buffer is full , empty it and backward
+
 
 
     def __reward_function(self, action):
