@@ -4,14 +4,14 @@
 **V**ehicular **E**dge **C**omputing Networks
 Based on Trajectory Prediction
 
-This is a solution finding dqn agent in a edge computing problem . 
+This is a solution finding dqn agent in an edge computing problem . 
 
 Vehicles should decide what to do with their tasks . They have three options : 
 * Process it locally 
 * Offload it to one of mission vehicles
 * Offload it to the cloud 
 
-This projects considers lot of parameters like : 
+This project considers lot of parameters like : 
 * Delay
 * Energy consumption 
 * Network bandwidth
