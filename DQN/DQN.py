@@ -3,6 +3,9 @@ from states import ActionSpace
 from collections import deque
 import random
 
+from mxnet import nd, autograd, gluon, init
+from mxnet.gluon import nn, loss as gloss
+
 
 class ReplayBuffer(object):
     def __init__(self, capacity):
@@ -21,11 +24,12 @@ class ReplayBuffer(object):
         return len(self.buffer)
 
 class DeepQNetwork:
-    def __init__(self, lr, gamma):
+    def __init__(self, lr, gamma, capacity):
         self.learning_rate = lr
         self.gamma = gamma
         self.values = {}
         self.policy = {}
+        self.capacity = capacity
 
     def built_net(self):
         # ------------------ all inputs ------------------------
@@ -43,11 +47,17 @@ class DeepQNetwork:
 
     def compute_policy(self):
         # Buffer
-        buffer = ReplayBuffer()
+        replay_buffer = ReplayBuffer(self.capacity)
 
-        # Environment
+        # Environment --> it must return the init_state and step
 
         # Net
+        net = nn.Sequential()
+        # The input is the state
+        # The output is action ( 1 of 3 )
+        net.add(nn.Dense(256, activation='relu'),
+                nn.Dense(num_ue * 2 + num_ue * (F + 1)))
+        net.initialize(init.Normal(sigma=0.001))
 
         # Trainer
 
@@ -75,19 +85,42 @@ class DeepQNetwork:
             next_state, reward = self.__reward_function(action)
 
             # If done: move to initial state
+            if :
+                # ra is for resource allocation
+                replay_buffer.push(state, (action_ra, action_rf), reward, next_state, done)
 
             # If not done : move to the next_state
+            if :
+                replay_buffer.push(state, (action_ra, action_rf), reward, next_state, done)
 
             # If buffer is full , empty it and backward
 
 
 
-    def __reward_function(self, action):
+    def __reward_function(self, state, action):
+        n_state = self.step(state, action)
+
         u_comm_m_t = self.__compute_transmission_utilization(action)
         u_comp_m_t = self.__compute_calculation_utilization(action)
 
         r = u_comm_m_t + u_comp_m_t
         return n_state, r
+
+    def step(self, state, action):
+        # Offloading to RSU
+        if action.lambda_R_m_t == 1 :
+            # update G_R_m_t & freq_R_m_t
+            pass
+
+        # Offloading to co-operative vehicle
+        if action.lambda_V_m_t == 1 :
+            # update G_V_m_t & freq_V_m_t
+            pass
+
+        # processing locally
+        if action.lambda_L_m_t == 1 :
+            # update freq_l_m_t
+            pass
 
     # Transmission utilization
     def __compute_transmission_utilization(self, action):
