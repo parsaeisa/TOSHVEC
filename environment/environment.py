@@ -6,6 +6,7 @@ from transitions import Transitions
 from DQN import DQN
 from config import Config
 
+
 class Environment:
     """
         A singleton object
@@ -75,5 +76,6 @@ class Environment:
             oe = OffloadingEnvironment()
 
             # Read lr and gamma from config
-            dqn = DQN.DeepQNetwork(self.config.DQN.lr, self.config.DQN.gamma)
+            dqn = DQN.DeepQNetwork(self.config.DQN.lr, self.config.DQN.gamma,
+                                   self.config.DQN.replay_buffer_capacity)
             dqn.compute_policy()
