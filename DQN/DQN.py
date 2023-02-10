@@ -45,7 +45,7 @@ class DeepQNetwork:
 
         # Optimizer
 
-    def compute_policy(self):
+    def compute_policy(self, init_state):
         # Buffer
         replay_buffer = ReplayBuffer(self.capacity)
 
@@ -64,7 +64,7 @@ class DeepQNetwork:
         # Loss function
 
         # Initial state
-        initial_state =
+        initial_state = init_state
 
         # The loop
         converged = False
@@ -87,6 +87,7 @@ class DeepQNetwork:
             # If done: move to initial state
             if :
                 # ra is for resource allocation
+                initial_state = init_state
                 replay_buffer.push(state, (action_ra, action_rf), reward, next_state, done)
 
             # If not done : move to the next_state
