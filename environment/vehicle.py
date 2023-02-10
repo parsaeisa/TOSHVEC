@@ -27,23 +27,35 @@ class Vehicle:
         return task.C / self.f
 
 
-class MissionVehicle(Vehicle):
+class CooperativeVehicle(Vehicle):
     """
         System configs :
         bandwidth =
         cpu power ( frequency ) =
     """
 
-    def __init__(self):
-        super(MissionVehicle, self).__init__()
+    def __init__(self, location, f):
+        super(CooperativeVehicle, self).__init__(location, f)
 
 
-class CooperativeVehicle(Vehicle):
-    def __init__(self):
-        super(CooperativeVehicle, self).__init__()
+class MissionVehicle(Vehicle):
+    """
+    Mission vehicle is the type of vehicle that has missions and
+    decides to whether process them locally or offload them.
+    """
+    def __init__(self, location, f):
+        super(MissionVehicle, self).__init__(location, f)
+
+        self.tasks = []
 
     def generate_task_randomly(self):
         pass
+
+    def sort_tasks(self):
+        """
+        this method sorts tasks based on their deadline
+        :return:
+        """
 
     def offload(self):
         pass
