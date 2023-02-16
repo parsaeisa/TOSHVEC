@@ -45,22 +45,22 @@ class Transitions:
     def compute_delays(self):
         self.compute_transmission_rates()
 
-        v2r_delays = self.offloading_to_rsu_delay(self.v2r_communication_links_trans_rate)
+        v2r_delays = self.offloading_to_rsu_delay()
 
-        v2v_delays = self.v2v_offloading_delays(self.v2v_communication_links_trans_rate)
+        v2v_delays = self.v2v_offloading_delays()
 
         return v2r_delays, v2v_delays
 
     # V2R
-    def offloading_to_rsu_delay(self, trans_rates):
-        return self._offloading_delays(self.v2r_communication_links_bandwidth, self.v2r_comm_delay, trans_rates)
+    def offloading_to_rsu_delay(self):
+        return self._offloading_delays(self.v2r_communication_links_bandwidth, self.v2r_comm_delay, self.v2r_communication_links_trans_rate)
 
     def backhaul_link_delay(self):
         pass
 
     # V2V
-    def v2v_offloading_delays(self, trans_rates):
-        return self._offloading_delays(self.v2v_communication_links_bandwidth, self.v2v_comm_delay, trans_rates)
+    def v2v_offloading_delays(self):
+        return self._offloading_delays(self.v2v_communication_links_bandwidth, self.v2v_comm_delay, self.v2v_communication_links_trans_rate)
 
     # Shared
     def _offloading_delays(self, bandwidths, delays, trans_rates):
