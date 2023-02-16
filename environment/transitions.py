@@ -1,11 +1,32 @@
 import numpy as np
 
 
-def offloading_delay(task, r_mt_j):
+def offloading_delay_per_task(task, r_mt_j):
     l_m = task.L
     t_comm = l_m / r_mt_j
 
     return t_comm
+
+
+def _offloading_delays(available, bandwidths, delays, trans_rates, tasks):
+
+    # origins are always mission vehicles
+    destinations_count, origins_count = bandwidths.shape()
+
+    for destination_index in range(destinations_count):
+        for origin_index in range(origins_count):
+
+            if not available[destination_index, origin_index]:
+                continue
+
+            for task_index in range(len(tasks)):
+                r_mt_j = trans_rates[destination_index, origin_index]
+
+                delays[destination_index, origin_index, task_index] = \
+                    offloading_delay_per_task(
+                        tasks[task_index], r_mt_j
+                    )
+    return delays
 
 
 class Transitions:
@@ -52,33 +73,16 @@ class Transitions:
 
     # V2R
     def offloading_to_rsu_delay(self):
-        return self._offloading_delays(self.v2r_communication_links_bandwidth, self.v2r_comm_delay, self.v2r_communication_links_trans_rate)
+        return _offloading_delays(self.v2r_communication_links_bandwidth, self.v2r_comm_delay, self.v2r_communication_links_trans_rate,
+                                       self.tasks)
 
     def backhaul_link_delay(self):
         pass
 
     # V2V
     def v2v_offloading_delays(self):
-        return self._offloading_delays(self.v2v_communication_links_bandwidth, self.v2v_comm_delay, self.v2v_communication_links_trans_rate)
-
-    # Shared
-    def _offloading_delays(self, bandwidths, delays, trans_rates):
-        # don't forget to consider available links
-
-        # origins are always mission vehicles
-        destinations_count, origins_count = bandwidths.shape()
-
-        for mission_vehicle_index in range(destinations_count):
-            for cooperative_vehicle_index in range(origins_count):
-
-                for task_index in range(len(self.tasks)):
-                    r_mt_j = trans_rates[mission_vehicle_index, cooperative_vehicle_index]
-
-                    delays[mission_vehicle_index, cooperative_vehicle_index, task_index] = \
-                        offloading_delay(
-                            self.tasks[task_index], r_mt_j
-                        )
-        return delays
+        return _offloading_delays(self.v2v_communication_links_bandwidth, self.v2v_comm_delay, self.v2v_communication_links_trans_rate,
+                                       self.tasks)
 
     def compute_transmission_rates(self):
 
