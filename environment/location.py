@@ -1,4 +1,3 @@
 class Location:
-    def __init__(self, lat, lng):
+    def __init__(self, lat):
         self.lat = lat
-        self.lng = lng

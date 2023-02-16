@@ -11,6 +11,7 @@ class Config:
         self.DQN = DQNConfig()
         self.DQN.lr = data["dqn"]["learning_rate"]
         self.DQN.gamma = data["dqn"]["gamma"]
+        self.DQN.replay_buffer_capacity = data["dqn"]["replay_buffer_capacity"]
 
         self.vs = VehicleSelectionConfig()
         self.vs.alpha = data["vehicle_selection"]["alpha"]
@@ -23,6 +24,7 @@ class DQNConfig:
     def __init__(self):
         self.lr = 0
         self.gamma = 0
+        self.replay_buffer_capacity = 0
 
 
 class TransmissionConfig:

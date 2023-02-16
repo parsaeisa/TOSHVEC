@@ -21,3 +21,10 @@ After simulating the environment we give the states, actions, reward functions a
 
 ## Stacks
 The dqn is written using `mxnet` for now .
+
+## Assumptions by now 
+
+This model decides for one :
+* mission vehicle ( with just one task )
+* co-operative vehicle
+* RSU
