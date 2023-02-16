@@ -83,11 +83,12 @@ class Transitions:
 
         interference = compute_interference_V2R()
         bandwidths = self.v2r_communication_links_bandwidth
+        gaus_noise = 0
 
         # Equation 1 in the paper
         # P is transmission power
         # G is the channel gain to RSU 1
-        r = np.power(bandwidths, R) + np.log2(1 + np.divide(P * G, gaus_noise + interference))
+        r = bandwidths * np.log2(1 + np.divide(self.P * self.G, gaus_noise + interference))
         return r
 
 
