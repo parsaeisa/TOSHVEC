@@ -13,7 +13,7 @@ class Transitions:
                  v2v_communication_links_bandwidth,
                  v2r_communication_links_available,
                  v2r_communication_links_bandwidth,
-                 tasks, mission_vehicles,
+                 tasks,
                  transmission_power, channel_gain):
         self.v2v_communication_links_available = v2v_communication_links_available
         self.v2v_communication_links_bandwidth = v2v_communication_links_bandwidth
@@ -29,17 +29,18 @@ class Transitions:
         self.G = channel_gain
 
         self.tasks = tasks
-        self.mission_vehicles = mission_vehicles
-        mission_vehicles_count, cooperative_vehicles_count = self.v2v_communication_links_bandwidth.shape()
 
+        mission_vehicles_count, cooperative_vehicles_count = self.v2v_communication_links_bandwidth.shape()
         self.v2v_comm_delay = np.zeros(
             (mission_vehicles_count, cooperative_vehicles_count, len(self.tasks))
         )
 
-        mission_vehicles_count, rus_count = self.v2r_communication_links_bandwidth.shape()
+        mission_vehicles_count, rsu_count = self.v2r_communication_links_bandwidth.shape()
         self.v2r_comm_delay = np.zeros(
-            (mission_vehicles_count, cooperative_vehicles_count, len(self.tasks))
+            (mission_vehicles_count, rsu_count, len(self.tasks))
         )
+
+        self.mission_vehicles_count = mission_vehicles_count
 
     def compute_delays(self):
         self.compute_transmission_rates()
@@ -99,4 +100,4 @@ class Transitions:
         current mission vehicle
         """
 
-        return (len(self.mission_vehicles)-1) * self.G * self.P
+        return (self.mission_vehicles_count - 1) * self.G * self.P
