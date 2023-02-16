@@ -1,8 +1,10 @@
 class State:
     def __init__(self):
+        # task transmission
         self.G_j_m_t = 0
         self.G_R_m_t = 0
 
+        # task calculation
         self.freq_R_m_t = 0
         self.freq_l_m_t = 0
         self.freq_j_m_t = 0
