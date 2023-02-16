@@ -9,7 +9,6 @@ def offloading_delay_per_task(task, r_mt_j):
 
 
 def _offloading_delays(available, bandwidths, delays, trans_rates, tasks):
-    # don't forget to consider available links
 
     # origins are always mission vehicles
     destinations_count, origins_count = bandwidths.shape()
