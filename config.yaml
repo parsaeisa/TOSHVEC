@@ -8,3 +8,7 @@ vehicle_selection:
   betta: 2
   w1: 3
   d_max: 4
+
+transition:
+  channel_gain: 100
+  transmission_power: 100

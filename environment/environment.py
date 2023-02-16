@@ -54,7 +54,8 @@ class Environment:
                 v2v_communication_links_bandwidth,
                 v2r_communication_links_available,
                 v2r_communication_links_bandwidth,
-                self.tasks, self.cooperative_vehicles
+                self.tasks,
+                self.config.transition.transmission_power, self.config.transition.channel_gain
             )
             transitions.compute_delays()
             # Read alpha, betta, w1, d_max from a config file or bash command

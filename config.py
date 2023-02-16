@@ -19,6 +19,16 @@ class Config:
         self.vs.w1 = data["vehicle_selection"]["w1"]
         self.vs.d_max = data["vehicle_selection"]["d_max"]
 
+        self.transition = Transition()
+        self.transition.transmission_power = data["transition"]["transmission_power"]
+        self.transition.channel_gain = data["transition"]["channel_gain"]
+
+
+class Transition:
+    def __init__(self):
+        self.transmission_power = 0
+        self.channel_gain = 0
+
 
 class DQNConfig:
     def __init__(self):
