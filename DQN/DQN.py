@@ -1,11 +1,21 @@
 import numpy as np
-from states import ActionSpace
+from states import ActionSpace, State
 from collections import deque
 import random
 
 from mxnet import nd, autograd, gluon, init
 from mxnet.gluon import nn, loss as gloss
 
+
+class playground:
+    def __init__(self):
+        pass
+
+    def init_state(self):
+        pass
+
+    def transition_function(self) -> (State, float, bool) :
+        pass
 
 class ReplayBuffer(object):
     def __init__(self, capacity):
