@@ -46,7 +46,6 @@ class Transitions:
         self.compute_transmission_rates()
 
         v2r_delays = self.offloading_to_rsu_delay()
-
         v2v_delays = self.v2v_offloading_delays()
 
         return v2r_delays, v2v_delays
