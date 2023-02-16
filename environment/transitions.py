@@ -81,7 +81,7 @@ class Transitions:
         # self.v2v_communication_links_trans_rate should be made here
         # is v2v and v2r formulation the same ?
 
-        interference = compute_interference_V2R()
+        interference = self.compute_interference_V2R()
         bandwidths = self.v2r_communication_links_bandwidth
         gaus_noise = 0
 
@@ -91,6 +91,5 @@ class Transitions:
         r = bandwidths * np.log2(1 + np.divide(self.P * self.G, gaus_noise + interference))
         return r
 
-
-def compute_interference_V2R():
-    pass
+    def compute_interference_V2R(self):
+        pass
