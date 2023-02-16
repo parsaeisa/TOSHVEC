@@ -12,7 +12,11 @@ class Environment:
         A singleton object
     """
 
-    def __init__(self, rsus, mission_vehicles, cooperative_vehicles, tasks, transmissions, timeslots_count):
+    def __init__(self, rsus, mission_vehicles, cooperative_vehicles, tasks,
+                 v2v_communication_links_available,
+                v2v_communication_links_bandwidth,
+                v2r_communication_links_available,
+                v2r_communication_links_bandwidth, timeslots_count):
         # timeslots
         self.timeslots_count = timeslots_count
 
@@ -36,10 +40,17 @@ class Environment:
         self.RSU_vehicle_connected = numpy.zeros((self.M, self.RSU_COUNT), int)
         self.mission_cooperative_vehicle_connected = numpy.zeros((self.M, self.J), int)
 
-        # transmissions
-        self.transmissions = transmissions
-
         self.config = Config()
+        self.config.init()
+
+        self.transitions = Transitions(
+            v2v_communication_links_available,
+            v2v_communication_links_bandwidth,
+            v2r_communication_links_available,
+            v2r_communication_links_bandwidth,
+            self.tasks,
+            self.config.transition.transmission_power, self.config.transition.channel_gain
+        )
 
     def read_from_config(self):
         # This method reads environment variables from a config.yml file .
@@ -48,16 +59,8 @@ class Environment:
     def start_execution(self):
         for _ in range(self.timeslots_count):
 
-            self.config.init()
-            transitions = Transitions(
-                v2v_communication_links_available,
-                v2v_communication_links_bandwidth,
-                v2r_communication_links_available,
-                v2r_communication_links_bandwidth,
-                self.tasks,
-                self.config.transition.transmission_power, self.config.transition.channel_gain
-            )
-            transitions.compute_delays()
+
+            self.transitions.compute_delays()
             # Read alpha, betta, w1, d_max from a config file or bash command
             # * Config file is preferred .
             vs = model.VehicleSelection(self.config.vs.alpha, self.config.vs.betta,
