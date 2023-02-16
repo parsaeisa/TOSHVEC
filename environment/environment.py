@@ -73,6 +73,7 @@ class Environment:
             # now based on these distances we make an array
             # of candidate cooperative vehicles for each mission vehicle to offload
             # their tasks to . ( the distance must be lower than d_max )
+            # ** I think the class below is not necessary yet
             oe = OffloadingEnvironment()
 
             # Read lr and gamma from config
