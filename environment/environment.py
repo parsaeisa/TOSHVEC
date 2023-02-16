@@ -14,9 +14,9 @@ class Environment:
 
     def __init__(self, rsus, mission_vehicles, cooperative_vehicles, tasks,
                  v2v_communication_links_available,
-                v2v_communication_links_bandwidth,
-                v2r_communication_links_available,
-                v2r_communication_links_bandwidth, timeslots_count):
+                 v2v_communication_links_bandwidth,
+                 v2r_communication_links_available,
+                 v2r_communication_links_bandwidth, timeslots_count):
         # timeslots
         self.timeslots_count = timeslots_count
 
@@ -58,8 +58,6 @@ class Environment:
 
     def start_execution(self):
         for _ in range(self.timeslots_count):
-
-
             self.transitions.compute_delays()
             # Read alpha, betta, w1, d_max from a config file or bash command
             # * Config file is preferred .
