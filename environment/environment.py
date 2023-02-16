@@ -64,8 +64,7 @@ class Environment:
             vs = model.VehicleSelection(self.config.vs.alpha, self.config.vs.betta,
                                         self.config.vs.w1, self.config.vs.d_max,
                                         self.mission_vehicles,
-                                        self.cooperative_vehicles,
-                                        transitions)
+                                        self.cooperative_vehicles)
 
             vs.learn_trajectories()
             vs.compute_distances()
