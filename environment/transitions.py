@@ -14,7 +14,8 @@ class Transitions:
                  v2v_communication_links_bandwidth,
                  v2r_communication_links_available,
                  v2r_communication_links_bandwidth,
-                 tasks, cooperative_vehicles):
+                 tasks, cooperative_vehicles,
+                 transmission_power, channel_gain):
         self.v2v_communication_links_available = v2v_communication_links_available
         self.v2v_communication_links_bandwidth = v2v_communication_links_bandwidth
         self.v2v_communication_links_trans_rate = np.zeros_like(v2v_communication_links_bandwidth.shape())
@@ -24,6 +25,9 @@ class Transitions:
         self.v2r_communication_links_trans_rate = np.zeros_like(v2r_communication_links_bandwidth.shape())
         # Transmission rates are computed based on bandwidth
         # Transmission rates are being used in practice .
+
+        self.P = transmission_power
+        self.G = channel_gain
 
         self.tasks = tasks
         self.cooperative_vehicles = cooperative_vehicles
@@ -81,6 +85,8 @@ class Transitions:
         bandwidths = self.v2r_communication_links_bandwidth
 
         # Equation 1 in the paper
+        # P is transmission power
+        # G is the channel gain to RSU 1
         r = np.power(bandwidths, R) + np.log2(1 + np.divide(P * G, gaus_noise + interference))
         return r
 
