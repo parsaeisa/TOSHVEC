@@ -14,7 +14,7 @@ class Transitions:
                  v2v_communication_links_bandwidth,
                  v2r_communication_links_available,
                  v2r_communication_links_bandwidth,
-                 tasks, cooperative_vehicles,
+                 tasks, mission_vehicles,
                  transmission_power, channel_gain):
         self.v2v_communication_links_available = v2v_communication_links_available
         self.v2v_communication_links_bandwidth = v2v_communication_links_bandwidth
@@ -30,7 +30,7 @@ class Transitions:
         self.G = channel_gain
 
         self.tasks = tasks
-        self.cooperative_vehicles = cooperative_vehicles
+        self.mission_vehicles = mission_vehicles
         mission_vehicles_count, cooperative_vehicles_count = self.v2v_communication_links_bandwidth.shape()
 
         self.v2v_comm_delay = np.zeros(
@@ -92,4 +92,4 @@ class Transitions:
         return r
 
     def compute_interference_V2R(self):
-        pass
+        return (len(self.mission_vehicles)-1) * self.G * self.P
