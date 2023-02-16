@@ -53,7 +53,7 @@ class VehicleSelection:
                 t_j = self.transitions.v2v_comm_delay[i, j, ]
                 d_j = self.distances[i, j]
 
-                eq_12[i] = self.vehicle_selection_superiority_equation(t_j, d_j, c_j)
+                eq_12[i][j] = self.vehicle_selection_superiority_equation(t_j, d_j, c_j)
             selected_vehicle[i] = eq_12[i].max()
 
         return selected_vehicle
