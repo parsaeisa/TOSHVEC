@@ -43,7 +43,7 @@ class Transitions:
         )
 
     def compute_delays(self):
-        self.compute_transmission_rates()
+        transmission_rates = self.compute_transmission_rates()
 
         self.offloading_to_rsu_delay()
 
@@ -64,10 +64,11 @@ class Transitions:
     def _offloading_delays(self, bandwidths, delays):
         # don't forget to consider available links
 
-        mission_vehicles_count, cooperative_vehicles_count = bandwidths.shape()
+        # origins are always mission vehicles
+        destination, origins = bandwidths.shape()
 
-        for mission_vehicle_index in range(mission_vehicles_count):
-            for cooperative_vehicle_index in range(cooperative_vehicles_count):
+        for mission_vehicle_index in range(destination):
+            for cooperative_vehicle_index in range(origins):
 
                 for task_index in range(len(self.tasks)):
                     r_mt_j = self.v2v_communication_links_trans_rate[mission_vehicle_index, cooperative_vehicle_index]
