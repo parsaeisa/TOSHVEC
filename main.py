@@ -22,13 +22,20 @@ cooperative_vehicles = [
 tasks = []
 timeslots_count = 10
 
-v2v_communication_links_available = np.array([])
+v2v_communication_links_available = np.array([[
+    [[True, False, True]],
+    [[False, True, True]],
+    [[False, False, False]],
+]])
 v2v_communication_links_bandwidth = np.array([
     [[100, 50, 200]],
     [[100, 60, 500]],
     [[200, 70, 500]],
 ])
-v2r_communication_links_available = np.array([])
+v2r_communication_links_available = np.array([
+    [[True, False, True]],
+    [[False, True, True]],
+])
 v2r_communication_links_bandwidth = np.array([
     [[100, 50, 400]],
     [[100, 200, 200]],
