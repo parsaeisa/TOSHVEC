@@ -1,6 +1,14 @@
 import numpy as np
 
 
+def offloading_delay(task, r_mt_j):
+    l_m = task.L
+
+    t_comm = l_m / r_mt_j
+
+    return t_comm
+
+
 class Transitions:
     def __init__(self, v2v_communication_links_available,
                  v2v_communication_links_bandwidth,
@@ -61,16 +69,9 @@ class Transitions:
                     r_mt_j = self.v2v_communication_links_trans_rate[mission_vehicle_index, cooperative_vehicle_index]
 
                     delays[mission_vehicle_index, cooperative_vehicle_index, task_index] = \
-                        self.offloading_delay(
+                        offloading_delay(
                             self.tasks[task_index], r_mt_j
                         )
-
-    def offloading_delay(self, task, r_mt_j):
-        l_m = task.L
-
-        t_comm = l_m / r_mt_j
-
-        return t_comm
 
     def compute_transmission_rates(self):
         # self.v2v_communication_links_trans_rate should be made here

@@ -9,6 +9,10 @@ this is a place for sequential model
 """
 
 
+def _compute_distance(cv_location, mv_location):
+    return np.linalg.norm(cv_location, mv_location)
+
+
 class VehicleSelection:
 
     def __init__(self, alpha, betta, w1, d_max, mission_vehicles, cooperative_vehicles, transitions):
@@ -69,7 +73,8 @@ class VehicleSelection:
         j = 0
         for cv in self.cooperative_vehicles:
             for mv in self.mission_vehicles:
-                self.distances[i][j] = self._compute_distance(cv.location, mv.location)
+                # The location below is actually their location in the next timeslot.
+                self.distances[i][j] = _compute_distance(cv.location, mv.location)
 
                 if self.distances[i][j] <= self.d_max:
                     # This matrix indicates candidate cvs for all msv .
@@ -77,9 +82,6 @@ class VehicleSelection:
 
                 i += 1
             j += 1
-
-    def _compute_distance(self, cv_location, mv_location):
-        return np.linalg.norm(cv_location, mv_location)
 
     def compute_delay(self):
         # The delay is computed inside of vehicles .
