@@ -92,4 +92,9 @@ class Transitions:
         return r
 
     def compute_interference_V2R(self):
+        """
+        Interference is the sum of ( transmission power * channel gain ) in mission vehicles except the
+        current mission vehicle
+        """
+
         return (len(self.mission_vehicles)-1) * self.G * self.P
