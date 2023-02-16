@@ -3,7 +3,6 @@ import numpy as np
 
 def offloading_delay(task, r_mt_j):
     l_m = task.L
-
     t_comm = l_m / r_mt_j
 
     return t_comm
