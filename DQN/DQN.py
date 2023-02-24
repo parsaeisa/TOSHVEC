@@ -33,27 +33,14 @@ class ReplayBuffer(object):
     def __len__(self):
         return len(self.buffer)
 
-class DeepQNetwork:
+class DeepQEnvironment:
     def __init__(self, lr, gamma, capacity):
+        self.action_size = 3 # read from config
         self.learning_rate = lr
         self.gamma = gamma
         self.values = {}
         self.policy = {}
         self.capacity = capacity
-
-    def built_net(self):
-        # ------------------ all inputs ------------------------
-        # We should input state , next state (??) , reward and action to the deep learning model
-        # I think only state is passed to neural network and action is retrieved .
-        self.s = tf.placeholder(tf.float32, [None, self.n_features], name='s')  # input State
-        self.s_ = tf.placeholder(tf.float32, [None, self.n_features], name='s_')  # input Next State
-        self.r = tf.placeholder(tf.float32, [None, ], name='r')  # input Reward
-        self.a = tf.placeholder(tf.int32, [None, ], name='a')  # input Action
-
-        # ------------------ build target_net ------------------
-        # Layers
-
-        # Optimizer
 
     def compute_policy(self, init_state):
         # Buffer
@@ -62,12 +49,7 @@ class DeepQNetwork:
         # Environment --> it must return the init_state and step
 
         # Net
-        net = nn.Sequential()
-        # The input is the state
-        # The output is action ( 1 of 3 )
-        net.add(nn.Dense(256, activation='relu'),
-                nn.Dense(num_ue * 2 + num_ue * (F + 1)))
-        net.initialize(init.Normal(sigma=0.001))
+        net = self.build_model()
 
         # Trainer
 
@@ -153,6 +135,21 @@ class DeepQNetwork:
 
     def __compute_calculation_cost(self, action):
         pass
+
+    def build_model(self):
+        net = nn.Sequential()
+        # The input is the state , neurons count equals state_size
+        # The output is the q-value for each action , so the neurons count in the last layer
+        # equals to number of actions
+        net.add(nn.Dense(256, activation='relu'),
+                nn.Dense(self.action_size, activations="relu"))
+
+        net.initialize(init.Normal(sigma=0.001))
+
+        return net
+
+
+class DQNAgent:
 
 
 def jug(t1, t2):

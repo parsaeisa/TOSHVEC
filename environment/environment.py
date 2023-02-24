@@ -78,6 +78,6 @@ class Environment:
             oe = OffloadingEnvironment()
 
             # Read lr and gamma from config
-            dqn = DQN.DeepQNetwork(self.config.DQN.lr, self.config.DQN.gamma,
-                                   self.config.DQN.replay_buffer_capacity)
+            dqn = DQN.DeepQEnvironment(self.config.DQN.lr, self.config.DQN.gamma,
+                                       self.config.DQN.replay_buffer_capacity)
             dqn.compute_policy()
