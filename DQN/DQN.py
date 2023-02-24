@@ -41,10 +41,14 @@ class DeepQEnvironment:
         self.values = {}
         self.policy = {}
         self.capacity = capacity
+        self.state = None
+
+    def reset(self):
+        # This method leads us to the initial state
+        self.state = State() # Fill inputs
+        return self.state
 
     def compute_policy(self, init_state):
-        # Buffer
-        replay_buffer = ReplayBuffer(self.capacity)
 
         # Environment --> it must return the init_state and step
 
@@ -55,38 +59,9 @@ class DeepQEnvironment:
 
         # Loss function
 
-        # Initial state
-        initial_state = init_state
-
-        # The loop
-        converged = False
-
-        actions = [
-            ActionSpace(1,0,0),
-            ActionSpace(0,1,0),
-            ActionSpace(0,0,1)
-        ]
-
         # Finding value of each state
         while not converged:
 
-            # Extract action
-            action =
-
-            # Extract reward, next_state, and done from that action
-            next_state, reward = self.__reward_function(action)
-
-            # If done: move to initial state
-            if :
-                # ra is for resource allocation
-                initial_state = init_state
-                replay_buffer.push(state, (action_ra, action_rf), reward, next_state, done)
-
-            # If not done : move to the next_state
-            if :
-                replay_buffer.push(state, (action_ra, action_rf), reward, next_state, done)
-
-            # If buffer is full , empty it and backward
 
 
 
@@ -99,7 +74,8 @@ class DeepQEnvironment:
         r = u_comm_m_t + u_comp_m_t
         return n_state, r
 
-    def step(self, state, action):
+    def step(self, state, action) : # returns reward, next_state, state, action, done
+        # These parameters are updated to direct us to the next state
         # Offloading to RSU
         if action.lambda_R_m_t == 1 :
             # update G_R_m_t & freq_R_m_t
@@ -114,6 +90,9 @@ class DeepQEnvironment:
         if action.lambda_L_m_t == 1 :
             # update freq_l_m_t
             pass
+
+        next_state = State()
+        reward = self.__reward_function(state, action)
 
     # Transmission utilization
     def __compute_transmission_utilization(self, action):
@@ -150,6 +129,19 @@ class DeepQEnvironment:
 
 
 class DQNAgent:
+
+    def __init__(self, capacity):
+        # Buffer
+        self.replay_buffer = ReplayBuffer(capacity)
+
+    def add_to_replay_memory(self, transition):
+        self.replay_buffer.push(transition)
+
+    def get_qs(self, current_state):
+        pass
+
+    def train(self, done, step):
+        pass
 
 
 def jug(t1, t2):
