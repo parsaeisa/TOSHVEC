@@ -35,7 +35,6 @@ class ReplayBuffer(object):
 
 class DeepQEnvironment:
     def __init__(self, lr, gamma, capacity):
-        self.action_size = 3 # read from config
         self.learning_rate = lr
         self.gamma = gamma
         self.values = {}
@@ -51,9 +50,6 @@ class DeepQEnvironment:
     def compute_policy(self, init_state):
 
         # Environment --> it must return the init_state and step
-
-        # Net
-        net = self.build_model()
 
         # Trainer
 
@@ -115,6 +111,34 @@ class DeepQEnvironment:
     def __compute_calculation_cost(self, action):
         pass
 
+
+class DQNAgent:
+
+    def __init__(self, capacity):
+        # Buffer
+        self.replay_buffer = ReplayBuffer(capacity)
+
+        # Net
+        net = self.build_model()
+
+        # Parameters
+        self.action_size = 3  # read from config
+
+
+    def add_to_replay_memory(self, transition):
+        self.replay_buffer.push(transition)
+
+    def get_qs(self, current_state):
+        pass
+
+    def train(self, done, step):
+        # sampling random data from replay_memory
+
+        # pre-process them
+
+        # model.fit
+        pass
+
     def build_model(self):
         net = nn.Sequential()
         # The input is the state , neurons count equals state_size
@@ -126,23 +150,6 @@ class DeepQEnvironment:
         net.initialize(init.Normal(sigma=0.001))
 
         return net
-
-
-class DQNAgent:
-
-    def __init__(self, capacity):
-        # Buffer
-        self.replay_buffer = ReplayBuffer(capacity)
-
-    def add_to_replay_memory(self, transition):
-        self.replay_buffer.push(transition)
-
-    def get_qs(self, current_state):
-        pass
-
-    def train(self, done, step):
-        pass
-
 
 def jug(t1, t2):
     if t1 >= t2:
