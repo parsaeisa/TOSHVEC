@@ -4,6 +4,11 @@ from yaml.loader import SafeLoader
 
 class Config:
 
+    def __init__(self):
+        self.DQN = None
+        self.transition = None
+        self.vs = None
+
     def init(self):
         with open('config.yaml') as f:
             data = yaml.load(f, Loader=SafeLoader)
@@ -12,6 +17,8 @@ class Config:
         self.DQN.lr = data["dqn"]["learning_rate"]
         self.DQN.gamma = data["dqn"]["gamma"]
         self.DQN.replay_buffer_capacity = data["dqn"]["replay_buffer_capacity"]
+        self.DQN.episodes = data["dqn"]["episodes"]
+        self.DQN.epsilon = data["dqn"]["epsilon"]
 
         self.vs = VehicleSelectionConfig()
         self.vs.alpha = data["vehicle_selection"]["alpha"]
@@ -35,6 +42,8 @@ class DQNConfig:
         self.lr = 0
         self.gamma = 0
         self.replay_buffer_capacity = 0
+        self.episodes = 0
+        self.epsilon = 0
 
 
 class TransmissionConfig:

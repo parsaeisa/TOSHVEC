@@ -2,6 +2,8 @@ dqn:
   learning_rate: 0.9
   gamma: 0.3
   replay_buffer_capacity : 100
+  episodes: 2000
+  epsilon: 0.1
 
 vehicle_selection:
   alpha: 1
