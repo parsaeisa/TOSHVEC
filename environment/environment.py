@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 
 from trajectory_prediction import model
 from offloading_env import OffloadingEnvironment
@@ -37,8 +37,8 @@ class Environment:
         self.TASKS_COUNT = len(self.tasks)
 
         # coverage matrices
-        self.RSU_vehicle_connected = numpy.zeros((self.M, self.RSU_COUNT), int)
-        self.mission_cooperative_vehicle_connected = numpy.zeros((self.M, self.J), int)
+        self.RSU_vehicle_connected = np.zeros((self.M, self.RSU_COUNT), int)
+        self.mission_cooperative_vehicle_connected = np.zeros((self.M, self.J), int)
 
         self.config = Config()
         self.config.init()
@@ -76,8 +76,3 @@ class Environment:
             # their tasks to . ( the distance must be lower than d_max )
             # ** I think the class below is not necessary yet
             oe = OffloadingEnvironment()
-
-            # Read lr and gamma from config
-            dqn = DQN.DeepQEnvironment(self.config.DQN.lr, self.config.DQN.gamma,
-                                       self.config.DQN.replay_buffer_capacity)
-            dqn.compute_policy()
