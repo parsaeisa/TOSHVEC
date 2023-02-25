@@ -5,28 +5,26 @@ from yaml.loader import SafeLoader
 class Config:
 
     def __init__(self):
-        self.DQN = None
-        self.transition = None
-        self.vs = None
+        self.DQN = DQNConfig()
+        self.vs = VehicleSelectionConfig()
+        self.transition = Transition()
 
     def init(self):
         with open('config.yaml') as f:
             data = yaml.load(f, Loader=SafeLoader)
 
-        self.DQN = DQNConfig()
         self.DQN.lr = data["dqn"]["learning_rate"]
         self.DQN.gamma = data["dqn"]["gamma"]
         self.DQN.replay_buffer_capacity = data["dqn"]["replay_buffer_capacity"]
         self.DQN.episodes = data["dqn"]["episodes"]
         self.DQN.epsilon = data["dqn"]["epsilon"]
+        self.DQN.batch_size = data["dqn"]["batch_size"]
 
-        self.vs = VehicleSelectionConfig()
         self.vs.alpha = data["vehicle_selection"]["alpha"]
         self.vs.betta = data["vehicle_selection"]["betta"]
         self.vs.w1 = data["vehicle_selection"]["w1"]
         self.vs.d_max = data["vehicle_selection"]["d_max"]
 
-        self.transition = Transition()
         self.transition.transmission_power = data["transition"]["transmission_power"]
         self.transition.channel_gain = data["transition"]["channel_gain"]
 
@@ -44,6 +42,7 @@ class DQNConfig:
         self.replay_buffer_capacity = 0
         self.episodes = 0
         self.epsilon = 0
+        self.batch_size = 0
 
 
 class TransmissionConfig:

@@ -4,6 +4,7 @@ dqn:
   replay_buffer_capacity : 100
   episodes: 2000
   epsilon: 0.1
+  batch_size: 100
 
 vehicle_selection:
   alpha: 1
