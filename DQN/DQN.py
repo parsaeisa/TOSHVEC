@@ -142,7 +142,7 @@ class DQNAgent:
 
     def train(self, done, step):
         # sampling random data from replay_memory
-        states, action, rewards, next_states, done = self.replay_buffer.sample(self.batch_size)
+        states, actions, rewards, next_states, done = self.replay_buffer.sample(self.batch_size)
 
 
         # pre-process them
@@ -156,8 +156,11 @@ class DQNAgent:
             max_future_q_value = np.max(future_q_values)
             taken_action_q_value = rewards[index] + self.discount_factor * max_future_q_value
 
+            q_values = current_q_values[index]
+            q_values[actions[index]] = taken_action_q_value
+
             input_data.append(states[index])
-            label.append(taken_action_q_value)
+            label.append(q_values)
 
         # model.fit
         pass
