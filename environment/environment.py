@@ -61,8 +61,10 @@ class Environment:
             self.transitions.compute_delays()
             # Read alpha, betta, w1, d_max from a config file or bash command
             # * Config file is preferred .
-            vs = model.VehicleSelection(self.config.vs.alpha, self.config.vs.betta,
-                                        self.config.vs.w1, self.config.vs.d_max,
+            vs = model.VehicleSelection(self.config.vs.alpha,
+                                        self.config.vs.betta,
+                                        self.config.vs.w1,
+                                        self.config.vs.d_max,
                                         self.mission_vehicles,
                                         self.cooperative_vehicles)
 
@@ -78,9 +80,12 @@ class Environment:
             oe = OffloadingEnvironment()
 
             # Read lr and gamma from config
-            dqn_env = DQN.DeepQEnvironment(self.config.DQN.lr, self.config.DQN.gamma)
+            dqn_env = DQN.DeepQEnvironment(self.config.DQN.lr,
+                                           self.config.DQN.gamma)
+
             agent = DQN.DQNAgent(self.config.DQN.replay_buffer_capacity,
-                                 self.config.DQN.batch_size, self.config.DQN.discount_factor)
+                                 self.config.DQN.batch_size,
+                                 self.config.DQN.discount_factor)
 
             for i in range(self.config.DQN.episodes):
 
