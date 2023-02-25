@@ -3,9 +3,10 @@ from states import ActionSpace, State
 from collections import deque
 import random
 
-from mxnet import nd, autograd, gluon, init
-from mxnet.gluon import nn, loss as gloss
-
+# from mxnet import nd, autograd, gluon, init
+# from mxnet.gluon import nn, loss as gloss
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Conv2D, MaxPool2D, Activation, Flatten
 
 class playground:
     def __init__(self):
@@ -70,7 +71,7 @@ class DeepQEnvironment:
         r = u_comm_m_t + u_comp_m_t
         return n_state, r
 
-    def step(self, state, action) : # returns reward, next_state, state, action, done
+    def step(self, state, action) : # returns reward, next_state, done
         # These parameters are updated to direct us to the next state
         # Offloading to RSU
         if action.lambda_R_m_t == 1 :
@@ -87,8 +88,13 @@ class DeepQEnvironment:
             # update freq_l_m_t
             pass
 
+        # I think the done is false when at least one of the resources value is zero
+        done = False
+
         next_state = State()
         reward = self.__reward_function(state, action)
+
+        return  next_state, reward, done
 
     # Transmission utilization
     def __compute_transmission_utilization(self, action):
@@ -114,40 +120,57 @@ class DeepQEnvironment:
 
 class DQNAgent:
 
-    def __init__(self, capacity):
+    def __init__(self, capacity, batch_size, discount_factor):
         # Buffer
         self.replay_buffer = ReplayBuffer(capacity)
 
         # Net
-        net = self.build_model()
+        self.net = self.build_model()
 
         # Parameters
         self.action_size = 3  # read from config
+        self.batch_size = batch_size
+        self.discount_factor = discount_factor
 
 
     def add_to_replay_memory(self, transition):
         self.replay_buffer.push(transition)
 
     def get_qs(self, current_state):
+        # Here we call the predict method in our model
         pass
 
     def train(self, done, step):
         # sampling random data from replay_memory
+        states, action, rewards, next_states, done = self.replay_buffer.sample(self.batch_size)
+
 
         # pre-process them
+        input_data = []
+        label = []
+
+        current_q_values = self.net.predict(states)
+        future_q_values = self.net.predict(next_states)
+
+        for index in range(self.batch_size):
+            max_future_q_value = np.max(future_q_values)
+            taken_action_q_value = rewards[index] + self.discount_factor * max_future_q_value
+
+            input_data.append(states[index])
+            label.append(taken_action_q_value)
 
         # model.fit
         pass
 
     def build_model(self):
-        net = nn.Sequential()
+        net = Sequential()
         # The input is the state , neurons count equals state_size
         # The output is the q-value for each action , so the neurons count in the last layer
         # equals to number of actions
-        net.add(nn.Dense(256, activation='relu'),
-                nn.Dense(self.action_size, activations="relu"))
+        net.add(Dense(256, activation='relu'),
+                Dense(self.action_size, activations="relu"))
 
-        net.initialize(init.Normal(sigma=0.001))
+        # net.initialize(init.Normal(sigma=0.001)) # What is it ???
 
         return net
 
