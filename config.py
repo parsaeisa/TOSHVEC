@@ -19,6 +19,7 @@ class Config:
         self.DQN.episodes = data["dqn"]["episodes"]
         self.DQN.epsilon = data["dqn"]["epsilon"]
         self.DQN.batch_size = data["dqn"]["batch_size"]
+        self.DQN.discount_factor = data["dqn"]["discount_factor"]
 
         self.vs.alpha = data["vehicle_selection"]["alpha"]
         self.vs.betta = data["vehicle_selection"]["betta"]
@@ -43,6 +44,7 @@ class DQNConfig:
         self.episodes = 0
         self.epsilon = 0
         self.batch_size = 0
+        self.discount_factor = 0
 
 
 class TransmissionConfig:

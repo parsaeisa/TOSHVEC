@@ -5,6 +5,7 @@ dqn:
   episodes: 2000
   epsilon: 0.1
   batch_size: 100
+  discount_factor: 0.9
 
 vehicle_selection:
   alpha: 1
