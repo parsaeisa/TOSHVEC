@@ -130,7 +130,6 @@ class DQNAgent:
         # sampling random data from replay_memory
         states, actions, rewards, next_states, done = self.replay_buffer.sample(self.batch_size)
 
-
         # pre-process them
         input_data = []
         label = []
