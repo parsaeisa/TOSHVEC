@@ -76,3 +76,36 @@ class Environment:
             # their tasks to . ( the distance must be lower than d_max )
             # ** I think the class below is not necessary yet
             oe = OffloadingEnvironment()
+
+            # Read lr and gamma from config
+            dqn_env = DQN.DeepQEnvironment(self.config.DQN.lr, self.config.DQN.gamma)
+            agent = DQN.DQNAgent(self.config.DQN.replay_buffer_capacity,
+                                 self.config.DQN.batch_size, self.config.DQN.discount_factor)
+
+            for i in range(self.config.DQN.episodes):
+
+                done = False
+                current_state = dqn_env.reset()
+
+                while not done:
+                    if np.random.random() > self.config.DQN.epsilon:
+                        action = np.argmax(agent.get_qs(current_state))
+                    else:
+                        action = np.random.randint(0, agent.action_size)
+
+                    next_state, reward, done = dqn_env.step(current_state, action)
+
+                    # episode_reward += reward
+
+                    agent.add_to_replay_memory((current_state, action, reward, next_state, done))
+                    agent.train(done)
+
+                    current_state = next_state
+                    # If buffer is full , empty it and backward
+
+                # We need a decay epsilon
+                # if epsilon > MIN_EPSILON:
+                #     epsilon *= EPSILON_DECAY
+                #     epsilon = max(MIN_EPSILON, epsilon)
+
+
