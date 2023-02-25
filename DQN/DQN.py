@@ -124,7 +124,7 @@ class DQNAgent:
 
     def get_qs(self, current_state):
         # Here we call the predict method in our model
-        pass
+        return self.net.predict([current_state])
 
     def train(self, done, step):
         # sampling random data from replay_memory
