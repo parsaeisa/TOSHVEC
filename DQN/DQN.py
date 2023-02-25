@@ -48,20 +48,6 @@ class DeepQEnvironment:
         self.state = State() # Fill inputs
         return self.state
 
-    def compute_policy(self, init_state):
-
-        # Environment --> it must return the init_state and step
-
-        # Trainer
-
-        # Loss function
-
-        # Finding value of each state
-        while not converged:
-
-
-
-
     def __reward_function(self, state, action):
         n_state = self.step(state, action)
 
