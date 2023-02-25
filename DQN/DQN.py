@@ -148,6 +148,13 @@ class DQNAgent:
             label.append(q_values)
 
         # model.fit
+        self.net.fit(
+            input_data,
+            label,
+            batch_size=64,
+            epochs=5,
+            validation_split=0.2
+        )
         pass
 
     def build_model(self):
