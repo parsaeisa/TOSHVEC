@@ -17,6 +17,7 @@ class Environment:
                  v2v_communication_links_bandwidth,
                  v2r_communication_links_available,
                  v2r_communication_links_bandwidth, timeslots_count):
+        print(">>> Initiating environment")
         # timeslots
         self.timeslots_count = timeslots_count
 
@@ -40,9 +41,11 @@ class Environment:
         self.RSU_vehicle_connected = np.zeros((self.M, self.RSU_COUNT), int)
         self.mission_cooperative_vehicle_connected = np.zeros((self.M, self.J), int)
 
+        print(">>> Reading configurations")
         self.config = Config()
         self.config.init()
 
+        print(">>> Creating transitions")
         self.transitions = Transitions(
             v2v_communication_links_available,
             v2v_communication_links_bandwidth,
@@ -53,6 +56,7 @@ class Environment:
         )
 
     def start_execution(self):
+        print(">>> Start execution")
         for _ in range(self.timeslots_count):
             print(">>> Computing delays")
             self.transitions.compute_delays()
