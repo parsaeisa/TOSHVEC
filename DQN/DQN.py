@@ -35,12 +35,11 @@ class ReplayBuffer(object):
         return len(self.buffer)
 
 class DeepQEnvironment:
-    def __init__(self, lr, gamma, capacity):
+    def __init__(self, lr, gamma):
         self.learning_rate = lr
         self.gamma = gamma
         self.values = {}
         self.policy = {}
-        self.capacity = capacity
         self.state = None
 
     def reset(self):
