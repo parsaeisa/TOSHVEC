@@ -52,10 +52,6 @@ class Environment:
             self.config.transition.transmission_power, self.config.transition.channel_gain
         )
 
-    def read_from_config(self):
-        # This method reads environment variables from a config.yml file .
-        pass
-
     def start_execution(self):
         for _ in range(self.timeslots_count):
             self.transitions.compute_delays()
