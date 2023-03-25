@@ -36,6 +36,10 @@ class Transitions:
                  v2r_communication_links_bandwidth,
                  tasks,
                  transmission_power, channel_gain):
+
+        assert v2v_communication_links_available.shape == v2v_communication_links_bandwidth.shape
+        assert v2r_communication_links_available.shape == v2r_communication_links_bandwidth.shape
+
         self.v2v_communication_links_available = v2v_communication_links_available
         self.v2v_communication_links_bandwidth = v2v_communication_links_bandwidth
         self.v2v_communication_links_trans_rate = np.zeros_like(v2v_communication_links_bandwidth.shape)
@@ -73,7 +77,7 @@ class Transitions:
 
     # V2R
     def offloading_to_rsu_delay(self):
-        return _offloading_delays(self.v2r_communication_links_bandwidth, self.v2r_comm_delay, self.v2r_communication_links_trans_rate,
+        return _offloading_delays(self.v2r_communication_links_available, self.v2r_communication_links_bandwidth, self.v2r_comm_delay, self.v2r_communication_links_trans_rate,
                                        self.tasks)
 
     def backhaul_link_delay(self):
@@ -81,7 +85,7 @@ class Transitions:
 
     # V2V
     def v2v_offloading_delays(self):
-        return _offloading_delays(self.v2v_communication_links_bandwidth, self.v2v_comm_delay, self.v2v_communication_links_trans_rate,
+        return _offloading_delays(self.v2v_communication_links_available, self.v2v_communication_links_bandwidth, self.v2v_comm_delay, self.v2v_communication_links_trans_rate,
                                        self.tasks)
 
     def compute_transmission_rates(self):
