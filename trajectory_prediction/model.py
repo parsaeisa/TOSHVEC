@@ -95,6 +95,8 @@ class VehicleSelection:
         # The input is current location and the output is next location
 
         # start training the model
+        x_train, y_train = [], []
         model.fit(x_train, y_train)
 
+        current_locations = []
         self.location_next_ts = model.predict(current_locations)
