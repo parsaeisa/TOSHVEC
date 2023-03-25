@@ -47,3 +47,5 @@ env = Environment(rsus, mission_vehicles, cooperative_vehicles, tasks,
                   v2r_communication_links_available,
                   v2r_communication_links_bandwidth,
                   timeslots_count)
+
+env.start_execution()
