@@ -2,7 +2,7 @@ import numpy as np
 
 from trajectory_prediction import model
 # from offloading_env import OffloadingEnvironment
-# from transitions import Transitions
+from .transitions import Transitions
 from DQN import DQN
 from config import Config
 
