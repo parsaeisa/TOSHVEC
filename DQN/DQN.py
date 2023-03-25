@@ -91,10 +91,10 @@ class DeepQEnvironment:
 
     # Helper methods
     def __compute_transmission_revenue(self, action):
-        return a * ( action.lambda_R_m_t * + action.lambda_V_m_t * )
+        return 1 * ( action.lambda_R_m_t * + action.lambda_V_m_t * 1) # This 1s in the expression are not correct
 
     def __compute_transmission_cost(self, action):
-        return action.lambda_R_m_t * * + action.lambda_V_m_t * *
+        return action.lambda_R_m_t * 1 * + action.lambda_V_m_t * 1 * 1 # This 1s in the expression are not correct
 
     def __compute_calculation_revenue(self, action):
         pass
