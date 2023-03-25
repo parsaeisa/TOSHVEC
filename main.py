@@ -22,23 +22,23 @@ cooperative_vehicles = [
 tasks = []
 timeslots_count = 10
 
-v2v_communication_links_available = np.array([[
-    [[True, False, True]],
-    [[False, True, True]],
-    [[False, False, False]],
-]])
+v2v_communication_links_available = np.array([
+    [True, False, True],
+    [False, True, True],
+    [False, False, False],
+])
 v2v_communication_links_bandwidth = np.array([
-    [[100, 50, 200]],
-    [[100, 60, 500]],
-    [[200, 70, 500]],
+    [100, 50, 200],
+    [100, 60, 500],
+    [200, 70, 500],
 ])
 v2r_communication_links_available = np.array([
-    [[True, False, True]],
-    [[False, True, True]],
+    [True, False, True],
+    [False, True, True],
 ])
 v2r_communication_links_bandwidth = np.array([
-    [[100, 50, 400]],
-    [[100, 200, 200]],
+    [100, 50, 400],
+    [100, 200, 200],
 ])
 
 env = Environment(rsus, mission_vehicles, cooperative_vehicles, tasks,
@@ -47,3 +47,5 @@ env = Environment(rsus, mission_vehicles, cooperative_vehicles, tasks,
                   v2r_communication_links_available,
                   v2r_communication_links_bandwidth,
                   timeslots_count)
+
+env.start_execution()

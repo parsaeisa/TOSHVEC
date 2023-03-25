@@ -1,8 +1,8 @@
 import numpy as np
 
 from trajectory_prediction import model
-from offloading_env import OffloadingEnvironment
-from transitions import Transitions
+# from offloading_env import OffloadingEnvironment
+from .transitions import Transitions
 from DQN import DQN
 from config import Config
 
@@ -17,6 +17,7 @@ class Environment:
                  v2v_communication_links_bandwidth,
                  v2r_communication_links_available,
                  v2r_communication_links_bandwidth, timeslots_count):
+        print(">>> Initiating environment")
         # timeslots
         self.timeslots_count = timeslots_count
 
@@ -40,9 +41,11 @@ class Environment:
         self.RSU_vehicle_connected = np.zeros((self.M, self.RSU_COUNT), int)
         self.mission_cooperative_vehicle_connected = np.zeros((self.M, self.J), int)
 
+        print(">>> Reading configurations")
         self.config = Config()
         self.config.init()
 
+        print(">>> Creating transitions")
         self.transitions = Transitions(
             v2v_communication_links_available,
             v2v_communication_links_bandwidth,
@@ -52,12 +55,10 @@ class Environment:
             self.config.transition.transmission_power, self.config.transition.channel_gain
         )
 
-    def read_from_config(self):
-        # This method reads environment variables from a config.yml file .
-        pass
-
     def start_execution(self):
+        print(">>> Start execution")
         for _ in range(self.timeslots_count):
+            print(">>> Computing delays")
             self.transitions.compute_delays()
             # Read alpha, betta, w1, d_max from a config file or bash command
             # * Config file is preferred .
@@ -68,6 +69,7 @@ class Environment:
                                         self.mission_vehicles,
                                         self.cooperative_vehicles)
 
+            print(">>> Selecting best vehicle")
             vs.learn_trajectories()
             vs.compute_distances()
             vs.cooperative_vehicle_selection()
@@ -80,6 +82,7 @@ class Environment:
             oe = OffloadingEnvironment()
 
             # Read lr and gamma from config
+            print(">>> Making dqn environment and agent")
             dqn_env = DQN.DeepQEnvironment(self.config.DQN.lr,
                                            self.config.DQN.gamma)
 
@@ -87,6 +90,7 @@ class Environment:
                                  self.config.DQN.batch_size,
                                  self.config.DQN.discount_factor)
 
+            print(">>> Running iterations")
             for i in range(self.config.DQN.episodes):
 
                 done = False
@@ -112,5 +116,3 @@ class Environment:
                 # if epsilon > MIN_EPSILON:
                 #     epsilon *= EPSILON_DECAY
                 #     epsilon = max(MIN_EPSILON, epsilon)
-
-

@@ -1,22 +1,23 @@
 import numpy as np
-from states import ActionSpace, State
+# from states import ActionSpace, State
 from collections import deque
 import random
 
 # from mxnet import nd, autograd, gluon, init
 # from mxnet.gluon import nn, loss as gloss
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Conv2D, MaxPool2D, Activation, Flatten
+# from keras import models
+# from keras.models import Sequential
+# from keras.layers import Dense, Dropout, Conv2D, MaxPool2D, Activation, Flatten
 
-class playground:
-    def __init__(self):
-        pass
-
-    def init_state(self):
-        pass
-
-    def transition_function(self) -> (State, float, bool) :
-        pass
+# class playground:
+#     def __init__(self):
+#         pass
+#
+#     def init_state(self):
+#         pass
+#
+#     def transition_function(self) -> (State, float, bool) :
+#         pass
 
 class ReplayBuffer(object):
     def __init__(self, capacity):
@@ -35,12 +36,11 @@ class ReplayBuffer(object):
         return len(self.buffer)
 
 class DeepQEnvironment:
-    def __init__(self, lr, gamma, capacity):
+    def __init__(self, lr, gamma):
         self.learning_rate = lr
         self.gamma = gamma
         self.values = {}
         self.policy = {}
-        self.capacity = capacity
         self.state = None
 
     def reset(self):
@@ -92,10 +92,10 @@ class DeepQEnvironment:
 
     # Helper methods
     def __compute_transmission_revenue(self, action):
-        return a * ( action.lambda_R_m_t * + action.lambda_V_m_t * )
+        return 1 * ( action.lambda_R_m_t * + action.lambda_V_m_t * 1) # This 1s in the expression are not correct
 
     def __compute_transmission_cost(self, action):
-        return action.lambda_R_m_t * * + action.lambda_V_m_t * *
+        return action.lambda_R_m_t * 1 * + action.lambda_V_m_t * 1 * 1 # This 1s in the expression are not correct
 
     def __compute_calculation_revenue(self, action):
         pass

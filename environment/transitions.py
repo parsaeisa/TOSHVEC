@@ -11,7 +11,7 @@ def offloading_delay_per_task(task, r_mt_j):
 def _offloading_delays(available, bandwidths, delays, trans_rates, tasks):
 
     # origins are always mission vehicles
-    destinations_count, origins_count = bandwidths.shape()
+    destinations_count, origins_count = bandwidths.shape
 
     for destination_index in range(destinations_count):
         for origin_index in range(origins_count):
@@ -36,13 +36,17 @@ class Transitions:
                  v2r_communication_links_bandwidth,
                  tasks,
                  transmission_power, channel_gain):
+
+        assert v2v_communication_links_available.shape == v2v_communication_links_bandwidth.shape
+        assert v2r_communication_links_available.shape == v2r_communication_links_bandwidth.shape
+
         self.v2v_communication_links_available = v2v_communication_links_available
         self.v2v_communication_links_bandwidth = v2v_communication_links_bandwidth
-        self.v2v_communication_links_trans_rate = np.zeros_like(v2v_communication_links_bandwidth.shape())
+        self.v2v_communication_links_trans_rate = np.zeros_like(v2v_communication_links_bandwidth.shape)
 
         self.v2r_communication_links_available = v2r_communication_links_available
         self.v2r_communication_links_bandwidth = v2r_communication_links_bandwidth
-        self.v2r_communication_links_trans_rate = np.zeros_like(v2r_communication_links_bandwidth.shape())
+        self.v2r_communication_links_trans_rate = np.zeros_like(v2r_communication_links_bandwidth.shape)
         # Transmission rates are computed based on bandwidth
         # Transmission rates are being used in practice .
 
@@ -51,12 +55,12 @@ class Transitions:
 
         self.tasks = tasks
 
-        mission_vehicles_count, cooperative_vehicles_count = self.v2v_communication_links_bandwidth.shape()
+        mission_vehicles_count, cooperative_vehicles_count = self.v2v_communication_links_bandwidth.shape
         self.v2v_comm_delay = np.zeros(
             (mission_vehicles_count, cooperative_vehicles_count, len(self.tasks))
         )
 
-        mission_vehicles_count, rsu_count = self.v2r_communication_links_bandwidth.shape()
+        mission_vehicles_count, rsu_count = self.v2r_communication_links_bandwidth.shape
         self.v2r_comm_delay = np.zeros(
             (mission_vehicles_count, rsu_count, len(self.tasks))
         )
@@ -73,7 +77,7 @@ class Transitions:
 
     # V2R
     def offloading_to_rsu_delay(self):
-        return _offloading_delays(self.v2r_communication_links_bandwidth, self.v2r_comm_delay, self.v2r_communication_links_trans_rate,
+        return _offloading_delays(self.v2r_communication_links_available, self.v2r_communication_links_bandwidth, self.v2r_comm_delay, self.v2r_communication_links_trans_rate,
                                        self.tasks)
 
     def backhaul_link_delay(self):
@@ -81,7 +85,7 @@ class Transitions:
 
     # V2V
     def v2v_offloading_delays(self):
-        return _offloading_delays(self.v2v_communication_links_bandwidth, self.v2v_comm_delay, self.v2v_communication_links_trans_rate,
+        return _offloading_delays(self.v2v_communication_links_available, self.v2v_communication_links_bandwidth, self.v2v_comm_delay, self.v2v_communication_links_trans_rate,
                                        self.tasks)
 
     def compute_transmission_rates(self):
