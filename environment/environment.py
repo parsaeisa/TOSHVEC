@@ -1,8 +1,8 @@
 import numpy as np
 
 from trajectory_prediction import model
-from offloading_env import OffloadingEnvironment
-from transitions import Transitions
+# from offloading_env import OffloadingEnvironment
+# from transitions import Transitions
 from DQN import DQN
 from config import Config
 
@@ -54,6 +54,7 @@ class Environment:
 
     def start_execution(self):
         for _ in range(self.timeslots_count):
+            print(">>> Computing delays")
             self.transitions.compute_delays()
             # Read alpha, betta, w1, d_max from a config file or bash command
             # * Config file is preferred .
@@ -64,6 +65,7 @@ class Environment:
                                         self.mission_vehicles,
                                         self.cooperative_vehicles)
 
+            print(">>> Selecting best vehicle")
             vs.learn_trajectories()
             vs.compute_distances()
             vs.cooperative_vehicle_selection()
@@ -76,6 +78,7 @@ class Environment:
             oe = OffloadingEnvironment()
 
             # Read lr and gamma from config
+            print(">>> Making dqn environment and agent")
             dqn_env = DQN.DeepQEnvironment(self.config.DQN.lr,
                                            self.config.DQN.gamma)
 
@@ -83,6 +86,7 @@ class Environment:
                                  self.config.DQN.batch_size,
                                  self.config.DQN.discount_factor)
 
+            print(">>> Running iterations")
             for i in range(self.config.DQN.episodes):
 
                 done = False
@@ -108,5 +112,3 @@ class Environment:
                 # if epsilon > MIN_EPSILON:
                 #     epsilon *= EPSILON_DECAY
                 #     epsilon = max(MIN_EPSILON, epsilon)
-
-
